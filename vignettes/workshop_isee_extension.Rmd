@@ -16,110 +16,134 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Writing iSEE extensions
-
-Authors:
-    Kevin Rue-Albrecht^[University of Oxford],
-    Federico Marini^[Johannes Gutenberg-Universität Mainz],
-    Charlotte Soneson^[Friedrich Miescher Institute for Biomedical Research].
-    <br/>
 Last modified: 09 July, 2024.
 
 ## Overview
 
 ### Description
 
-This package demo will present a brief introduction to the functionality of the
-iSEE package and its existing extension packages, before demonstrating the
-writing of new functionality suitable for release in additional extension
-packages.
+This package demo will present a brief introduction to the functionality of the `r BiocStyle::Biocpkg("iSEE")` package and its existing extension packages, before demonstrating the writing of new functionality suitable for release in additional extension packages.
 
 ### Pre-requisites
 
 Workshop prerequisites:
 
-* Familiarity with the SummarizedExperiment class.
-* Familiarity with the shiny package
+* Familiarity with the `r BiocStyle::Biocpkg("SummarizedExperiment")` class.
+* Familiarity with the `r BiocStyle::CRANpkg("shiny")` package
 
 Relevant background reading:
 
-* EuroBioC2023:
-  (
-  [workshop](https://isee.github.io/iSEEDemoEuroBioC2023/articles/iSEEdemo.html)
-  )
-* EuroBioC2020: 
-  (
-  [workshop](https://isee.github.io/iSEEWorkshopEuroBioc2020/),
+* EuroBioC2023 workshop:
+  [materials](https://isee.github.io/iSEEDemoEuroBioC2023/articles/iSEEdemo.html)
+* EuroBioC2020 workshop: 
+  [materials](https://isee.github.io/iSEEWorkshopEuroBioc2020/),
   [slides](https://isee.github.io/iSEEWorkshopEuroBioc2020Slides/)
-  )
-* BioC2020: 
-  (
-  [workshop](https://isee.github.io/iSEEWorkshop2020/),
+* BioC2020 workshop: 
+  [materials](https://isee.github.io/iSEEWorkshop2020/),
   [slides](https://isee.github.io/iSEEWorkshop2020Slides/)
-  )
-* BioC2019
-  (
-  [workshop](https://isee.github.io/iSEEWorkshop2019/),
+* BioC2019 workshop:
+  [materials](https://isee.github.io/iSEEWorkshop2019/),
   [slides](https://isee.github.io/iSEEWorkshop2019Slides/)
-  )
-* Rue-Albrecht K, Marini F, Soneson C and Lun ATL. iSEE: Interactive SummarizedExperiment Explorer [version 1; peer review: 3 approved]. F1000Research 2018, 7:741 (https://doi.org/10.12688/f1000research.14966.1)
+* Rue-Albrecht K, Marini F, Soneson C and Lun ATL.
+  iSEE: Interactive SummarizedExperiment Explorer
+  [version 1; peer review: 3 approved]. F1000Research 2018, 7:741
+  (https://doi.org/10.12688/f1000research.14966.1)
+* 
 
 ### Participation
 
-Describe how students will be expected to participate in the workshop.
+Students are encouraged to ask questions throughout the package demo.
+
+Where applicable, instructors will illustrate answers with live-coded examples.
+
+Alternatively, students are also encouraged to write questions before, during, and after the workshop using the 'New issue' button on the GitHub repository for this workshop (https://github.com/iSEE/iSEEDemoEuroBioC2024/issues).
+
+Instructors will respond to GitHub issues at the earliest opportunity, which may be after the end of the conference.
 
 ### _R_ / _Bioconductor_ packages used
 
-List any _R_ / _Bioconductor_ packages that will be explicitly covered.
+* `r BiocStyle::Biocpkg("iSEE")`
+* `r BiocStyle::Biocpkg("iSEEde")`
+* `r BiocStyle::Biocpkg("iSEEhex")`
+* `r BiocStyle::Biocpkg("iSEEhub")`
+* `r BiocStyle::Biocpkg("iSEEindex")`
+* `r BiocStyle::Biocpkg("iSEEpathways")`
+* `r BiocStyle::Biocpkg("iSEEu")`
 
 ### Time outline
 
-An example for a 45-minute workshop:
+An example for a 40-minute workshop:
 
 | Activity                     | Time |
 |------------------------------|------|
-| Packages                     | 15m  |
-| Package Development          | 15m  |
-| Contributing to Bioconductor | 5m   |
-| Best Practices               | 10m  |
+| iSEE functionality           | 10m  |
+| Existing iSEE extensions     | 10m  |
+| Writing iSEE extensions      | 10m  |
+| Questions                    | 10m  |
 
 ### Workshop goals and objectives
 
-List "big picture" student-centered workshop goals and learning
-objectives. Learning goals and objectives are related, but not the
-same thing. These goals and objectives will help some people to decide
-whether to attend the conference for training purposes, so please make
-these as precise and accurate as possible.
-
-*Learning goals* are high-level descriptions of what
-participants will learn and be able to do after the workshop is
-over. *Learning objectives*, on the other hand, describe in very
-specific and measurable terms specific skills or knowledge
-attained. The [Bloom's Taxonomy](#bloom) may be a useful framework
-for defining and describing your goals and objectives, although there
-are others.
-
 ### Learning goals
 
-Some examples:
-
-* describe how to...
-* identify methods for...
-* understand the difference between...
+* Describe how to interactively explore omics data using `r BiocStyle::Biocpkg("iSEE")`.
+* Identify extension packages adding functionality to the `r BiocStyle::Biocpkg("iSEE")` interface.
+* Understand what is needed to write `r BiocStyle::Biocpkg("iSEE")` extensions.
 
 ### Learning objectives
 
-* analyze xyz data to produce...
-* create xyz plots
-* evaluate xyz data for artifacts
+* Launch `r BiocStyle::Biocpkg("iSEE")` applications to visualise examples data sets.
+* Configure `r BiocStyle::Biocpkg("iSEE")` applications to use functionality from extension packages.
+* Create and include a new `r BiocStyle::Biocpkg("iSEE")` panel in a live application.
 
-## Workshop
+## iSEE functionality
 
-Divide the workshop into sections (`## A Section`). Include
-fully-evaluated _R_ code chunks. Develop exercises and solutions, and
-anticipate that your audience will walk through the code with you, or
-work on the code idependently -- do not be too ambitious in the
-material that you present.
+`r BiocStyle::Biocpkg("iSEE")` was designed around the `r BiocStyle::Biocpkg("SummarizedExperiment")` class, a container widely used throughout the *Bioconductor* project.
+
+![SummarizedExperiment (Reproduced from package vignette; <https://bioconductor.org/packages/SummarizedExperiment/>)](img/SummarizedExperiment.svg)
+
+Briefly, the `r BiocStyle::Biocpkg("SummarizedExperiment")` class provides a container keeping matrices of assay data, sample metadata, and feature metadata synchronised throughout analytical workflows (e.g., filtering, reordering).
+
+By extension, `r BiocStyle::Biocpkg("iSEE")` naturally supports classes derived from `r BiocStyle::Biocpkg("SummarizedExperiment")`.
+For instance, the `r BiocStyle::Biocpkg("SingleCellExperiment")` class adds functionality for storing matrices of reduced dimensions, again keeping those synchronised with assay data and metadata during analyses.
+
+In practice, you would generally create a `r BiocStyle::Biocpkg("SummarizedExperiment")` object from raw data and metadata loaded from files (e.g., RNA-seq count matrix produce by a program like [featureCounts](https://doi.org/10.1093/bioinformatics/btt656) and sample metadata from your lab notebook).
+
+In this workshop, we will load a publicly available `r BiocStyle::Biocpkg("SummarizedExperiment")` object to save some time.
+You can learn about the creation and preprocessing  
+
+```{r, message=FALSE, warning=FALSE}
+library(scRNAseq)
+sce <- ReprocessedAllenData(assays="tophat_counts")
+```
 
 
+```{r, message=FALSE, warning=FALSE}
+library(iSEE)
+```
+
+Plan:
+
+* Load a data set
+* Launch the default app
+* Export the R script of the app state
+* Re-launch the app using the script
+
+(Remember: 10 min)
+
+## Existing iSEE extensions
+
+Plan:
+
+* Run code from the iSEEpathways vignette https://isee.github.io/iSEEpathways/articles/integration.html
+* Launch the app
+* Showcase the integration of pathways, DE, and core panels
+  (e.g., select a pathway in the results table, show those genes in the volcano plot and heat map)
+
+(Remember: 10 min)
+
+## Writing iSEE extensions
+
+```{r}
+
+```
 
