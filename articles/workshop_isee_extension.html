@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>An Example Workshop • iSEEDemoEuroBioC2024</title>
+<title>Writing an iSEE extension • iSEEDemoEuroBioC2024</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="An Example Workshop">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Writing an iSEE extension">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -80,40 +80,42 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>An Example Workshop</h1>
-                        <h4 data-toc-skip class="author">Sean Davis<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+      <h1 data-toc-skip>Writing an iSEE extension</h1>
+                        <h4 data-toc-skip class="author">Kevin
+Rue-Albrecht<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>,Federico Marini<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, Charlotte Soneson<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
 </h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/seandavi/BuildABiocWorkshop/blob/devel/vignettes/workshop_example.Rmd" class="external-link"><code>vignettes/workshop_example.Rmd</code></a></small>
-      <div class="hidden name"><code>workshop_example.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/seandavi/BuildABiocWorkshop/blob/devel/vignettes/workshop_isee_extension.Rmd" class="external-link"><code>vignettes/workshop_isee_extension.Rmd</code></a></small>
+      <div class="hidden name"><code>workshop_isee_extension.Rmd</code></div>
 
     </div>
 
     
     
 <div class="section level2">
-<h2 id="workshop-title">Workshop Title<a class="anchor" aria-label="anchor" href="#workshop-title"></a>
+<h2 id="writing-an-isee-extension">Writing an iSEE extension<a class="anchor" aria-label="anchor" href="#writing-an-isee-extension"></a>
 </h2>
-<p>Authors: Author Name<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, Another Author<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. <br> Last modified:
-14 May, 2018.</p>
+<p>Authors: Kevin Rue-Albrecht<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, Federico Marini<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, Charlotte Soneson<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. <br>
+Last modified: 09 July, 2024.</p>
 <div class="section level3">
 <h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h3>
 <div class="section level4">
 <h4 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h4>
-<p>Along with the topic of your workshop, include how students can
-expect to spend their time. For the description may also include
-information about what type of workshop it is (e.g. instructor-led live
-demo, lab, lecture + lab, etc.). Instructors are strongly recommended to
-provide completely worked examples for lab sessions, and a set of
-stand-alone notes that can be read and understood outside of the
-workshop.</p>
+<p>This package demo will present a brief introduction to the
+functionality of the iSEE package and its existing extension packages,
+before demonstrating the writing of new functionality suitable for
+release in additional extension packages.</p>
 </div>
 <div class="section level4">
 <h4 id="pre-requisites">Pre-requisites<a class="anchor" aria-label="anchor" href="#pre-requisites"></a>
 </h4>
+<ul>
+<li>Familiarity with the SummarizedExperiment class.</li>
+<li>Familiarity with the shiny package</li>
+</ul>
 <p>List any workshop prerequisites, for example:</p>
 <ul>
 <li>Basic knowledge of R syntax</li>
@@ -218,9 +220,12 @@ the material that you present.</p>
 <div class="footnotes footnotes-end-of-document">
 <hr>
 <ol>
-<li id="fn1"><p><a href="mailto:seandavi@gmail.com" class="email">seandavi@gmail.com</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Institution<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>Another Institution<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p><a href="mailto:kevinrue67@gmail.com" class="email">kevinrue67@gmail.com</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="mailto:marinif@uni-mainz.de" class="email">marinif@uni-mainz.de</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="mailto:charlottesoneson@gmail.com" class="email">charlottesoneson@gmail.com</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>University of Oxford<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Johannes Gutenberg-Universität Mainz<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Friedrich Miescher Institute for Biomedical Research<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
