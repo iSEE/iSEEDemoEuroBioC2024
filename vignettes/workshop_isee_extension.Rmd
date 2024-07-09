@@ -1,9 +1,9 @@
 ---
-title: "Writing an iSEE extension"
+title: "Writing iSEE extensions"
 author: Kevin Rue-Albrecht^[kevinrue67@gmail.com],Federico Marini^[marinif@uni-mainz.de], Charlotte Soneson^[charlottesoneson@gmail.com]
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Writing an iSEE extension}
+  %\VignetteIndexEntry{Writing iSEE extensions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Writing an iSEE extension
+# Writing iSEE extensions
 
 Authors:
     Kevin Rue-Albrecht^[University of Oxford],
@@ -36,20 +36,33 @@ packages.
 
 ### Pre-requisites
 
+Workshop prerequisites:
+
 * Familiarity with the SummarizedExperiment class.
 * Familiarity with the shiny package
 
-List any workshop prerequisites, for example:
+Relevant background reading:
 
-* Basic knowledge of R syntax
-* Familiarity with the GenomicRanges class
-* Familiarity with xyz vignette (provide link)
-
-List relevant background reading for the workshop, including any
-theoretical background you expect students to have.
-
-* List any textbooks, papers, or other reading that students should be
-  familiar with. Include direct links where possible.
+* EuroBioC2023:
+  (
+  [workshop](https://isee.github.io/iSEEDemoEuroBioC2023/articles/iSEEdemo.html)
+  )
+* EuroBioC2020: 
+  (
+  [workshop](https://isee.github.io/iSEEWorkshopEuroBioc2020/),
+  [slides](https://isee.github.io/iSEEWorkshopEuroBioc2020Slides/)
+  )
+* BioC2020: 
+  (
+  [workshop](https://isee.github.io/iSEEWorkshop2020/),
+  [slides](https://isee.github.io/iSEEWorkshop2020Slides/)
+  )
+* BioC2019
+  (
+  [workshop](https://isee.github.io/iSEEWorkshop2019/),
+  [slides](https://isee.github.io/iSEEWorkshop2019Slides/)
+  )
+* Rue-Albrecht K, Marini F, Soneson C and Lun ATL. iSEE: Interactive SummarizedExperiment Explorer [version 1; peer review: 3 approved]. F1000Research 2018, 7:741 (https://doi.org/10.12688/f1000research.14966.1)
 
 ### Participation
 
