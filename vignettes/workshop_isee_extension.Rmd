@@ -24,7 +24,7 @@ Last modified: 09 July, 2024.
 
 This package demo will present a brief introduction to the functionality of the `r BiocStyle::Biocpkg("iSEE")` package and its existing extension packages, before demonstrating the writing of new functionality suitable for release in additional extension packages.
 
-### Pre-requisites
+### Pre-requisites {#prerequisites}
 
 Workshop prerequisites:
 
@@ -48,7 +48,7 @@ Relevant background reading:
   iSEE: Interactive SummarizedExperiment Explorer
   [version 1; peer review: 3 approved]. F1000Research 2018, 7:741
   (https://doi.org/10.12688/f1000research.14966.1)
-* 
+* Vignette: [SummarizedExperiment for Coordinating Experimental Assays, Samples, and Regions of Interest](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html#anatomy-of-a-summarizedexperiment)
 
 ### Participation
 
@@ -97,29 +97,132 @@ An example for a 40-minute workshop:
 
 ## iSEE functionality
 
-`r BiocStyle::Biocpkg("iSEE")` was designed around the `r BiocStyle::Biocpkg("SummarizedExperiment")` class, a container widely used throughout the *Bioconductor* project.
+### Input data
 
-![SummarizedExperiment (Reproduced from package vignette; <https://bioconductor.org/packages/SummarizedExperiment/>)](img/SummarizedExperiment.svg)
+`r BiocStyle::Biocpkg("iSEE")` was designed around the `r BiocStyle::Biocpkg("SummarizedExperiment")` class, a container widely used throughout the *Bioconductor* project.
 
 Briefly, the `r BiocStyle::Biocpkg("SummarizedExperiment")` class provides a container keeping matrices of assay data, sample metadata, and feature metadata synchronised throughout analytical workflows (e.g., filtering, reordering).
 
+![SummarizedExperiment (reproduced from the package vignette; <https://bioconductor.org/packages/SummarizedExperiment/>).](img/SummarizedExperiment.svg)
+
+<br/>
+
 By extension, `r BiocStyle::Biocpkg("iSEE")` naturally supports classes derived from `r BiocStyle::Biocpkg("SummarizedExperiment")`.
-For instance, the `r BiocStyle::Biocpkg("SingleCellExperiment")` class adds functionality for storing matrices of reduced dimensions, again keeping those synchronised with assay data and metadata during analyses.
+For instance, the `r BiocStyle::Biocpkg("SingleCellExperiment")` class adds functionality for storing matrices of reduced dimensions, also keeping those synchronised with assay data and metadata during analyses.
 
-In practice, you would generally create a `r BiocStyle::Biocpkg("SummarizedExperiment")` object from raw data and metadata loaded from files (e.g., RNA-seq count matrix produce by a program like [featureCounts](https://doi.org/10.1093/bioinformatics/btt656) and sample metadata from your lab notebook).
+In practice, you would generally create a `r BiocStyle::Biocpkg("SummarizedExperiment")` (or derived) object from raw data and metadata loaded from files (e.g., RNA-seq count matrix produce by a program like [featureCounts](https://doi.org/10.1093/bioinformatics/btt656) and sample metadata from your lab notebook).
 
-In this workshop, we will load a publicly available `r BiocStyle::Biocpkg("SummarizedExperiment")` object to save some time.
-You can learn about the creation and preprocessing  
+`r fontawesome::fa("circle-info")` You can learn about the creation and handling of `SummarizedExperiment` objects in the [Relevant background reading](#prerequisites) resources above.
+
+In this workshop, we will load a publicly available `r BiocStyle::Biocpkg("SingleCellExperiment ")` object to save some time.
 
 ```{r, message=FALSE, warning=FALSE}
 library(scRNAseq)
 sce <- ReprocessedAllenData(assays="tophat_counts")
+sce
 ```
 
+In the summary view of the object displayed above, we can tell that it contains:
+
+* One assay called `tophat_counts`, a matrix measuring 20,816 genes in 379 cells.
+* Twenty two columns of cell metadata.
+* No gene metadata.
+
+Also of note:
+
+* Gene symbols are in use for the row names.
+* Arbitrary cell names are in use for column names.
+* Some object-level metadata is present.
+* An alternative experiment called `ERCC` is present (we will not use it).
+
+### Getting started with iSEE
+
+One of the strengths of `r BiocStyle::Biocpkg("iSEE")` is that it can be used at any point in an analytical workflow.
+From the moment raw data or metadata are encapsulated in a `r BiocStyle::Biocpkg("SummarizedExperiment")` object, they're good to go!
+
+Let's demonstrate this by attaching the `r BiocStyle::Biocpkg("iSEE")` package to the R session and calling the `iSEE()` function to launch an app in the default settings.
+
+```{r, message=FALSE, warning=FALSE, eval=interactive()}
+library(iSEE)
+iSEE(sce)
+```
+
+![Screenshot of iSEE app.](img/iSEE_default.png)
+
+<br/>
+
+In the screenshot above, you will notice that some of the panels are truncated at the bottom.
+
+`r BiocStyle::Biocpkg("iSEE")` applications organise panels along a single-page layout.
+Following `r BiocStyle::CRANpkg("shiny")` rules, pages are divided into 12 units horizontally, allowing up to 12 panels on a row before new rows are added to accommodate more panels.
+Depending on the size and set-up of your monitors, you may comfortably fit a considerable number of panels in your own screen estate.
+
+By default, `r BiocStyle::Biocpkg("iSEE")` applications adopt a "showcase" mode that populates the application with one panel of each type compatible with the assay data and metadata detected in the input object.
+
+As such, in the screenshot above, we see at least:
+
+* A 'Row data table' panel, displaying gene metadata.
+* A 'Feature assay plot' panel, displaying assayed data for the first gene in the data set.
+* A 'Column data plot' panel, ... TODO
+
+### Core iSEE functionality
+
+Within `r BiocStyle::Biocpkg("iSEE")` applications, users can interactively:
+
+* View tables of metadata, filtering rows, and selecting a single row that may be highlighted in other panels.
+* View plots of assay data and metadata, controlling data displayed along each axis, as well as visual aspects such as colour, shape, size, and faceting, using any suitable data or metadata present in the input object.
+* Draw selections in plots using the built-in rectangular `r BiocStyle::CRANpkg("shiny")` brush or the slower but more flexible lasso selection implemented in `r BiocStyle::Biocpkg("iSEE")`.
+* Transmit selection between panels, dynamically controlling which panels receive information from which panels.
+* Use transmitted selections to highlight or restrict the corresponding data points in the receiving panel(s).
+* Rearrange the layout of panels, adding, removing, or reordering panels at will.
+* Resize the panels, in width and height.
+
+Furthermore, you will also find functionality for:
+
+* Downloading the panel outputs: in PDF format for plots, and CSV format for tables.
+* Exporting an R script that reproduces exactly each panel output, including brushes and downstream effects related to transmitted selections.
+* Exporting an R script that reproduces exactly the current layout of the application.
+* Launching custom interactive tours introducing new users to the various components of the application.
+* Opening the vignette of the `r BiocStyle::Biocpkg("iSEE")` package without leaving the application.
+* Inspecting the session information.
+* Learning more about iSEE, including how to cite it.
+* Inspecting the overall object metadata (converted to JSON format).
+
+To simulate a short analytical workflow, let us run some more code from the `?iSEE` help page to:
+
+* Compute a normalised count matrix.
+* Compute a PCA.
+* Compute a t-SNE.
+* Compute some simple gene metadata.
 
 ```{r, message=FALSE, warning=FALSE}
-library(iSEE)
+library(scater)
+sce <- logNormCounts(sce, exprs_values="tophat_counts")
+
+sce <- runPCA(sce, ncomponents=4)
+sce <- runTSNE(sce)
+rowData(sce)$ave_count <- rowMeans(assay(sce, "tophat_counts"))
+rowData(sce)$n_cells <- rowSums(assay(sce, "tophat_counts") > 0)
+sce
 ```
+
+Then, as pointed out earlier, you are free to launch another `r BiocStyle::Biocpkg("iSEE")` again at any point in an analytical workflow.
+
+The `iSEE()` function automatically detects new assay data and metadata in the updated object, populating the application components with all the available information, old and new.
+
+```{r, message=FALSE, warning=FALSE, eval=interactive()}
+library(iSEE)
+iSEE(sce)
+```
+
+![Screenshot of iSEE app.](img/iSEE_default_2.png)
+
+<br/>
+
+Comparing the screenshot above with the earlier one, you will notice that the first panel is now a 'Reduced dimension plot' panel, and that all other panels have shifted position down in the order of the layout (top to bottom, left to right).
+
+Indeed, the last time we launched the app, the object did not contain any dimensionality reduction result.
+The `iSEE()` function automatically detected that, and dropped that type of panel from the application.
 
 Plan:
 
