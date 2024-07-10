@@ -94,60 +94,80 @@ Rue-Albrecht<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>,Fed
 
     
     
+<p>Last modified: 09 July, 2024.</p>
 <div class="section level2">
-<h2 id="writing-isee-extensions">Writing iSEE extensions<a class="anchor" aria-label="anchor" href="#writing-isee-extensions"></a>
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>Authors: Kevin Rue-Albrecht<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, Federico Marini<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, Charlotte Soneson<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. <br>
-Last modified: 09 July, 2024.</p>
 <div class="section level3">
-<h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+<h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h3>
-<div class="section level4">
-<h4 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
-</h4>
 <p>This package demo will present a brief introduction to the
-functionality of the iSEE package and its existing extension packages,
-before demonstrating the writing of new functionality suitable for
-release in additional extension packages.</p>
+functionality of the <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em> package
+and its existing extension packages, before demonstrating the writing of
+new functionality suitable for release in additional extension
+packages.</p>
 </div>
-<div class="section level4">
-<h4 id="pre-requisites">Pre-requisites<a class="anchor" aria-label="anchor" href="#pre-requisites"></a>
-</h4>
+<div class="section level3">
+<h3 id="prerequisites">Pre-requisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
+</h3>
 <p>Workshop prerequisites:</p>
 <ul>
-<li>Familiarity with the SummarizedExperiment class.</li>
-<li>Familiarity with the shiny package</li>
+<li>Familiarity with the <em><a href="https://bioconductor.org/packages/3.20/SummarizedExperiment" class="external-link">SummarizedExperiment</a></em>
+class.</li>
+<li>Familiarity with the <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em>
+package</li>
 </ul>
 <p>Relevant background reading:</p>
 <ul>
-<li>EuroBioC2023: ( <a href="https://isee.github.io/iSEEDemoEuroBioC2023/articles/iSEEdemo.html" class="external-link">workshop</a>
-)</li>
-<li>EuroBioC2020: ( <a href="https://isee.github.io/iSEEWorkshopEuroBioc2020/" class="external-link">workshop</a>, <a href="https://isee.github.io/iSEEWorkshopEuroBioc2020Slides/" class="external-link">slides</a>
-)</li>
-<li>BioC2020: ( <a href="https://isee.github.io/iSEEWorkshop2020/" class="external-link">workshop</a>, <a href="https://isee.github.io/iSEEWorkshop2020Slides/" class="external-link">slides</a> )</li>
-<li>BioC2019 ( <a href="https://isee.github.io/iSEEWorkshop2019/" class="external-link">workshop</a>, <a href="https://isee.github.io/iSEEWorkshop2019Slides/" class="external-link">slides</a> )</li>
+<li>EuroBioC2023 workshop: <a href="https://isee.github.io/iSEEDemoEuroBioC2023/articles/iSEEdemo.html" class="external-link">materials</a>
+</li>
+<li>EuroBioC2020 workshop: <a href="https://isee.github.io/iSEEWorkshopEuroBioc2020/" class="external-link">materials</a>,
+<a href="https://isee.github.io/iSEEWorkshopEuroBioc2020Slides/" class="external-link">slides</a>
+</li>
+<li>BioC2020 workshop: <a href="https://isee.github.io/iSEEWorkshop2020/" class="external-link">materials</a>, <a href="https://isee.github.io/iSEEWorkshop2020Slides/" class="external-link">slides</a>
+</li>
+<li>BioC2019 workshop: <a href="https://isee.github.io/iSEEWorkshop2019/" class="external-link">materials</a>, <a href="https://isee.github.io/iSEEWorkshop2019Slides/" class="external-link">slides</a>
+</li>
 <li>Rue-Albrecht K, Marini F, Soneson C and Lun ATL. iSEE: Interactive
 SummarizedExperiment Explorer [version 1; peer review: 3 approved].
 F1000Research 2018, 7:741 (<a href="https://doi.org/10.12688/f1000research.14966.1" class="external-link uri">https://doi.org/10.12688/f1000research.14966.1</a>)</li>
+<li>Vignette: <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html#anatomy-of-a-summarizedexperiment" class="external-link">SummarizedExperiment
+for Coordinating Experimental Assays, Samples, and Regions of
+Interest</a>
+</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="participation">Participation<a class="anchor" aria-label="anchor" href="#participation"></a>
-</h4>
-<p>Describe how students will be expected to participate in the
-workshop.</p>
+<div class="section level3">
+<h3 id="participation">Participation<a class="anchor" aria-label="anchor" href="#participation"></a>
+</h3>
+<p>Students are encouraged to ask questions throughout the package
+demo.</p>
+<p>Where applicable, instructors will illustrate answers with live-coded
+examples.</p>
+<p>Alternatively, students are also encouraged to write questions
+before, during, and after the workshop using the ‘New issue’ button on
+the GitHub repository for this workshop (<a href="https://github.com/iSEE/iSEEDemoEuroBioC2024/issues" class="external-link uri">https://github.com/iSEE/iSEEDemoEuroBioC2024/issues</a>).</p>
+<p>Instructors will respond to GitHub issues at the earliest
+opportunity, which may be after the end of the conference.</p>
 </div>
-<div class="section level4">
-<h4 id="r-bioconductor-packages-used">
+<div class="section level3">
+<h3 id="r-bioconductor-packages-used">
 <em>R</em> / <em>Bioconductor</em> packages used<a class="anchor" aria-label="anchor" href="#r-bioconductor-packages-used"></a>
-</h4>
-<p>List any <em>R</em> / <em>Bioconductor</em> packages that will be
-explicitly covered.</p>
+</h3>
+<ul>
+<li><em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.20/iSEEde" class="external-link">iSEEde</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.20/iSEEhex" class="external-link">iSEEhex</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.20/iSEEhub" class="external-link">iSEEhub</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.20/iSEEindex" class="external-link">iSEEindex</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.20/iSEEpathways" class="external-link">iSEEpathways</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.20/iSEEu" class="external-link">iSEEu</a></em></li>
+</ul>
 </div>
-<div class="section level4">
-<h4 id="time-outline">Time outline<a class="anchor" aria-label="anchor" href="#time-outline"></a>
-</h4>
-<p>An example for a 45-minute workshop:</p>
+<div class="section level3">
+<h3 id="time-outline">Time outline<a class="anchor" aria-label="anchor" href="#time-outline"></a>
+</h3>
+<p>An example for a 40-minute workshop:</p>
 <table class="table">
 <thead><tr class="header">
 <th>Activity</th>
@@ -155,69 +175,272 @@ explicitly covered.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Packages</td>
-<td>15m</td>
+<td>iSEE functionality</td>
+<td>10m</td>
 </tr>
 <tr class="even">
-<td>Package Development</td>
-<td>15m</td>
+<td>Existing iSEE extensions</td>
+<td>10m</td>
 </tr>
 <tr class="odd">
-<td>Contributing to Bioconductor</td>
-<td>5m</td>
+<td>Writing iSEE extensions</td>
+<td>10m</td>
 </tr>
 <tr class="even">
-<td>Best Practices</td>
+<td>Questions</td>
 <td>10m</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section level4">
-<h4 id="workshop-goals-and-objectives">Workshop goals and objectives<a class="anchor" aria-label="anchor" href="#workshop-goals-and-objectives"></a>
-</h4>
-<p>List “big picture” student-centered workshop goals and learning
-objectives. Learning goals and objectives are related, but not the same
-thing. These goals and objectives will help some people to decide
-whether to attend the conference for training purposes, so please make
-these as precise and accurate as possible.</p>
-<p><em>Learning goals</em> are high-level descriptions of what
-participants will learn and be able to do after the workshop is over.
-<em>Learning objectives</em>, on the other hand, describe in very
-specific and measurable terms specific skills or knowledge attained. The
-<a href="#bloom">Bloom’s Taxonomy</a> may be a useful framework for
-defining and describing your goals and objectives, although there are
-others.</p>
-</div>
-<div class="section level4">
-<h4 id="learning-goals">Learning goals<a class="anchor" aria-label="anchor" href="#learning-goals"></a>
-</h4>
-<p>Some examples:</p>
-<ul>
-<li>describe how to…</li>
-<li>identify methods for…</li>
-<li>understand the difference between…</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="learning-objectives">Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives"></a>
-</h4>
-<ul>
-<li>analyze xyz data to produce…</li>
-<li>create xyz plots</li>
-<li>evaluate xyz data for artifacts</li>
-</ul>
-</div>
+<div class="section level3">
+<h3 id="workshop-goals-and-objectives">Workshop goals and objectives<a class="anchor" aria-label="anchor" href="#workshop-goals-and-objectives"></a>
+</h3>
 </div>
 <div class="section level3">
-<h3 id="workshop">Workshop<a class="anchor" aria-label="anchor" href="#workshop"></a>
+<h3 id="learning-goals">Learning goals<a class="anchor" aria-label="anchor" href="#learning-goals"></a>
 </h3>
-<p>Divide the workshop into sections (<code>## A Section</code>).
-Include fully-evaluated <em>R</em> code chunks. Develop exercises and
-solutions, and anticipate that your audience will walk through the code
-with you, or work on the code idependently – do not be too ambitious in
-the material that you present.</p>
+<ul>
+<li>Describe how to interactively explore omics data using <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>.</li>
+<li>Identify extension packages adding functionality to the <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+interface.</li>
+<li>Understand what is needed to write <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+extensions.</li>
+</ul>
 </div>
+<div class="section level3">
+<h3 id="learning-objectives">Learning objectives<a class="anchor" aria-label="anchor" href="#learning-objectives"></a>
+</h3>
+<ul>
+<li>Launch <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+applications to visualise examples data sets.</li>
+<li>Configure <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+applications to use functionality from extension packages.</li>
+<li>Create and include a new <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em> panel
+in a live application.</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="isee-functionality">iSEE functionality<a class="anchor" aria-label="anchor" href="#isee-functionality"></a>
+</h2>
+<div class="section level3">
+<h3 id="input-data">Input data<a class="anchor" aria-label="anchor" href="#input-data"></a>
+</h3>
+<p><em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em> was
+designed around the <em><a href="https://bioconductor.org/packages/3.20/SummarizedExperiment" class="external-link">SummarizedExperiment</a></em>
+class, a container widely used throughout the <em>Bioconductor</em>
+project.</p>
+<p>Briefly, the <em><a href="https://bioconductor.org/packages/3.20/SummarizedExperiment" class="external-link">SummarizedExperiment</a></em>
+class provides a container keeping matrices of assay data, sample
+metadata, and feature metadata synchronised throughout analytical
+workflows (e.g., filtering, reordering).</p>
+<div class="float">
+<img src="img/SummarizedExperiment.svg" alt="SummarizedExperiment (reproduced from the package vignette; https://bioconductor.org/packages/SummarizedExperiment/)."><div class="figcaption">SummarizedExperiment (reproduced from the
+package vignette; <a href="https://bioconductor.org/packages/SummarizedExperiment/" class="external-link uri">https://bioconductor.org/packages/SummarizedExperiment/</a>).</div>
+</div>
+<p><br></p>
+<p>By extension, <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+naturally supports classes derived from <em><a href="https://bioconductor.org/packages/3.20/SummarizedExperiment" class="external-link">SummarizedExperiment</a></em>.
+For instance, the <em><a href="https://bioconductor.org/packages/3.20/SingleCellExperiment" class="external-link">SingleCellExperiment</a></em>
+class adds functionality for storing matrices of reduced dimensions,
+also keeping those synchronised with assay data and metadata during
+analyses.</p>
+<p>In practice, you would generally create a <em><a href="https://bioconductor.org/packages/3.20/SummarizedExperiment" class="external-link">SummarizedExperiment</a></em>
+(or derived) object from raw data and metadata loaded from files (e.g.,
+RNA-seq count matrix produce by a program like <a href="https://doi.org/10.1093/bioinformatics/btt656" class="external-link">featureCounts</a>
+and sample metadata from your lab notebook).</p>
+<p><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path></svg>
+You can learn about the creation and handling of
+<code>SummarizedExperiment</code> objects in the <a href="#prerequisites">Relevant background reading</a> resources
+above.</p>
+<p>In this workshop, we will load a publicly available <em><a href="https://bioconductor.org/packages/3.20/SingleCellExperiment" class="external-link">SingleCellExperiment</a></em>
+object to save some time.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scRNAseq</span><span class="op">)</span></span>
+<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scRNAseq/man/ReprocessedData.html" class="external-link">ReprocessedAllenData</a></span><span class="op">(</span>assays<span class="op">=</span><span class="st">"tophat_counts"</span><span class="op">)</span></span>
+<span><span class="va">sce</span></span>
+<span><span class="co">#&gt; class: SingleCellExperiment </span></span>
+<span><span class="co">#&gt; dim: 20816 379 </span></span>
+<span><span class="co">#&gt; metadata(2): SuppInfo which_qc</span></span>
+<span><span class="co">#&gt; assays(1): tophat_counts</span></span>
+<span><span class="co">#&gt; rownames(20816): 0610007P14Rik 0610009B22Rik ... Zzef1 Zzz3</span></span>
+<span><span class="co">#&gt; rowData names(0):</span></span>
+<span><span class="co">#&gt; colnames(379): SRR2140028 SRR2140022 ... SRR2139341 SRR2139336</span></span>
+<span><span class="co">#&gt; colData names(22): NREADS NALIGNED ... Animal.ID passes_qc_checks_s</span></span>
+<span><span class="co">#&gt; reducedDimNames(0):</span></span>
+<span><span class="co">#&gt; mainExpName: endogenous</span></span>
+<span><span class="co">#&gt; altExpNames(1): ERCC</span></span></code></pre></div>
+<p>In the summary view of the object displayed above, we can tell that
+it contains:</p>
+<ul>
+<li>One assay called <code>tophat_counts</code>, a matrix measuring
+20,816 genes in 379 cells.</li>
+<li>Twenty two columns of cell metadata.</li>
+<li>No gene metadata.</li>
+</ul>
+<p>Also of note:</p>
+<ul>
+<li>Gene symbols are in use for the row names.</li>
+<li>Arbitrary cell names are in use for column names.</li>
+<li>Some object-level metadata is present.</li>
+<li>An alternative experiment called <code>ERCC</code> is present (we
+will not use it).</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="getting-started-with-isee">Getting started with iSEE<a class="anchor" aria-label="anchor" href="#getting-started-with-isee"></a>
+</h3>
+<p>One of the strengths of <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em> is that
+it can be used at any point in an analytical workflow. From the moment
+raw data or metadata are encapsulated in a <em><a href="https://bioconductor.org/packages/3.20/SummarizedExperiment" class="external-link">SummarizedExperiment</a></em>
+object, they’re good to go!</p>
+<p>Let’s demonstrate this by attaching the <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em> package
+to the R session and calling the <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE()</a></code> function to launch
+an app in the default settings.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iSEE/iSEE" class="external-link">iSEE</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/iSEE_default.png" alt="Screenshot of iSEE app."><div class="figcaption">Screenshot of iSEE app.</div>
+</div>
+<p><br></p>
+<p>In the screenshot above, you will notice that some of the panels are
+truncated at the bottom.</p>
+<p><em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+applications organise panels along a single-page layout. Following
+<em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em>
+rules, pages are divided into 12 units horizontally, allowing up to 12
+panels on a row before new rows are added to accommodate more panels.
+Depending on the size and set-up of your monitors, you may comfortably
+fit a considerable number of panels in your own screen estate.</p>
+<p>By default, <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+applications adopt a “showcase” mode that populates the application with
+one panel of each type compatible with the assay data and metadata
+detected in the input object.</p>
+<p>As such, in the screenshot above, we see at least:</p>
+<ul>
+<li>A ‘Row data table’ panel, displaying gene metadata.</li>
+<li>A ‘Feature assay plot’ panel, displaying assayed data for the first
+gene in the data set.</li>
+<li>A ‘Column data plot’ panel, … TODO</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="core-isee-functionality">Core iSEE functionality<a class="anchor" aria-label="anchor" href="#core-isee-functionality"></a>
+</h3>
+<p>Within <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+applications, users can interactively:</p>
+<ul>
+<li>View tables of metadata, filtering rows, and selecting a single row
+that may be highlighted in other panels.</li>
+<li>View plots of assay data and metadata, controlling data displayed
+along each axis, as well as visual aspects such as colour, shape, size,
+and faceting, using any suitable data or metadata present in the input
+object.</li>
+<li>Draw selections in plots using the built-in rectangular <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em> brush or
+the slower but more flexible lasso selection implemented in <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>.</li>
+<li>Transmit selection between panels, dynamically controlling which
+panels receive information from which panels.</li>
+<li>Use transmitted selections to highlight or restrict the
+corresponding data points in the receiving panel(s).</li>
+<li>Rearrange the layout of panels, adding, removing, or reordering
+panels at will.</li>
+<li>Resize the panels, in width and height.</li>
+</ul>
+<p>Furthermore, you will also find functionality for:</p>
+<ul>
+<li>Downloading the panel outputs: in PDF format for plots, and CSV
+format for tables.</li>
+<li>Exporting an R script that reproduces exactly each panel output,
+including brushes and downstream effects related to transmitted
+selections.</li>
+<li>Exporting an R script that reproduces exactly the current layout of
+the application.</li>
+<li>Launching custom interactive tours introducing new users to the
+various components of the application.</li>
+<li>Opening the vignette of the <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em> package
+without leaving the application.</li>
+<li>Inspecting the session information.</li>
+<li>Learning more about iSEE, including how to cite it.</li>
+<li>Inspecting the overall object metadata (converted to JSON
+format).</li>
+</ul>
+<p>To simulate a short analytical workflow, let us run some more code
+from the <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">?iSEE</a></code> help page to:</p>
+<ul>
+<li>Compute a normalised count matrix.</li>
+<li>Compute a PCA.</li>
+<li>Compute a t-SNE.</li>
+<li>Compute some simple gene metadata.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://bioconductor.org/packages/scater/" class="external-link">scater</a></span><span class="op">)</span></span>
+<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html" class="external-link">logNormCounts</a></span><span class="op">(</span><span class="va">sce</span>, exprs_values<span class="op">=</span><span class="st">"tophat_counts"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocSingular/man/runPCA.html" class="external-link">runPCA</a></span><span class="op">(</span><span class="va">sce</span>, ncomponents<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runTSNE.html" class="external-link">runTSNE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">$</span><span class="va">ave_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">sce</span>, <span class="st">"tophat_counts"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">$</span><span class="va">n_cells</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">sce</span>, <span class="st">"tophat_counts"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">sce</span></span>
+<span><span class="co">#&gt; class: SingleCellExperiment </span></span>
+<span><span class="co">#&gt; dim: 20816 379 </span></span>
+<span><span class="co">#&gt; metadata(2): SuppInfo which_qc</span></span>
+<span><span class="co">#&gt; assays(2): tophat_counts logcounts</span></span>
+<span><span class="co">#&gt; rownames(20816): 0610007P14Rik 0610009B22Rik ... Zzef1 Zzz3</span></span>
+<span><span class="co">#&gt; rowData names(2): ave_count n_cells</span></span>
+<span><span class="co">#&gt; colnames(379): SRR2140028 SRR2140022 ... SRR2139341 SRR2139336</span></span>
+<span><span class="co">#&gt; colData names(23): NREADS NALIGNED ... passes_qc_checks_s sizeFactor</span></span>
+<span><span class="co">#&gt; reducedDimNames(2): PCA TSNE</span></span>
+<span><span class="co">#&gt; mainExpName: endogenous</span></span>
+<span><span class="co">#&gt; altExpNames(1): ERCC</span></span></code></pre></div>
+<p>Then, as pointed out earlier, you are free to launch another <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em> again
+at any point in an analytical workflow.</p>
+<p>The <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE()</a></code> function automatically detects new assay data
+and metadata in the updated object, populating the application
+components with all the available information, old and new.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iSEE/iSEE" class="external-link">iSEE</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/iSEE_default_2.png" alt="Screenshot of iSEE app."><div class="figcaption">Screenshot of iSEE app.</div>
+</div>
+<p><br></p>
+<p>Comparing the screenshot above with the earlier one, you will notice
+that the first panel is now a ‘Reduced dimension plot’ panel, and that
+all other panels have shifted position down in the order of the layout
+(top to bottom, left to right).</p>
+<p>Indeed, the last time we launched the app, the object did not contain
+any dimensionality reduction result. The <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE()</a></code> function
+automatically detected that, and dropped that type of panel from the
+application.</p>
+<p>Plan:</p>
+<ul>
+<li>Load a data set</li>
+<li>Launch the default app</li>
+<li>Export the R script of the app state</li>
+<li>Re-launch the app using the script</li>
+</ul>
+<p>(Remember: 10 min)</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="existing-isee-extensions">Existing iSEE extensions<a class="anchor" aria-label="anchor" href="#existing-isee-extensions"></a>
+</h2>
+<p>Plan:</p>
+<ul>
+<li>Run code from the iSEEpathways vignette <a href="https://isee.github.io/iSEEpathways/articles/integration.html" class="external-link uri">https://isee.github.io/iSEEpathways/articles/integration.html</a>
+</li>
+<li>Launch the app</li>
+<li>Showcase the integration of pathways, DE, and core panels (e.g.,
+select a pathway in the results table, show those genes in the volcano
+plot and heat map)</li>
+</ul>
+<p>(Remember: 10 min)</p>
+</div>
+<div class="section level2">
+<h2 id="writing-isee-extensions">Writing iSEE extensions<a class="anchor" aria-label="anchor" href="#writing-isee-extensions"></a>
+</h2>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr>
@@ -225,9 +448,6 @@ the material that you present.</p>
 <li id="fn1"><p><a href="mailto:kevinrue67@gmail.com" class="email">kevinrue67@gmail.com</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p><a href="mailto:marinif@uni-mainz.de" class="email">marinif@uni-mainz.de</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p><a href="mailto:charlottesoneson@gmail.com" class="email">charlottesoneson@gmail.com</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>University of Oxford<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>Johannes Gutenberg-Universität Mainz<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>Friedrich Miescher Institute for Biomedical Research<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
