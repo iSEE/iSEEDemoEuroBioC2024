@@ -162,8 +162,11 @@ By default, `r BiocStyle::Biocpkg("iSEE")` applications adopt a "showcase" mode 
 As such, in the screenshot above, we see at least:
 
 * A 'Row data table' panel, displaying gene metadata.
-* A 'Feature assay plot' panel, displaying assayed data for the first gene in the data set.
-* A 'Column data plot' panel, ... TODO
+* A 'Feature assay plot' panel, displaying assayed data for a gene.
+* A 'Column data plot' panel, displaying a column of cell metadata.
+* A 'Sample assay plot' panel, displaying assayed data for a sample.
+* A 'Column data table' panel, displaying cell metadata.
+* A 'Complex heatmap' panel, displaying assayed data for a set of genes.
 
 ### Core iSEE functionality
 
