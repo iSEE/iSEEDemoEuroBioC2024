@@ -2,7 +2,12 @@ Package: iSEEDemoEuroBioC2024
 Title: Package demo for EuroBioC2024
 Version: 2.0.1
 Authors@R: 
-    c(person(given = "Federico",
+    c(person(given = "Kevin",
+             family = "Rue-Albrecht",
+             role = "aut",
+             email = "kevinrue67@gmail.com",
+             comment = c(ORCID = "0000-0003-3899-3872")),
+     person(given = "Federico",
              family = "Marini",
              role = c("aut", "cre"),
              email = "marinif@uni-mainz.de",
@@ -11,13 +16,8 @@ Authors@R:
              family = "Soneson",
              role = "aut",
              email = "charlottesoneson@gmail.com",
-             comment = c(ORCID = "0000-0003-3833-2169")),
-      person(given = "Kevin",
-             family = "Rue-Albrecht",
-             role = "aut",
-             email = "kevinrue67@gmail.com",
-             comment = c(ORCID = "0000-0003-3899-3872"))
-     )
+             comment = c(ORCID = "0000-0003-3833-2169"))
+      )
 Description: This package provides the environment and materials for the
     package demo at the European Bioconductor Meeting 2024.
     The environment includes the iSEE package and all its extensions
@@ -46,7 +46,7 @@ Suggests:
     BiocStyle,
     scRNAseq,
     scater
-URL: https://seandavi.github.io/BuildABiocWorkshop/
-BugReports: https://github.com/seandavi/BuildABiocWorkshop/issues/new/choose
+URL: https://isee.github.io/iSEEDemoEuroBioC2024/
+BugReports: https://github.com/iSEE/iSEEDemoEuroBioC2024/issues/new/choose
 VignetteBuilder: knitr
-DockerImage: ghcr.io/seandavi/buildabiocworkshop:latest
+DockerImage: ghcr.io/isee/iseedemoeurobioc2024:latest
