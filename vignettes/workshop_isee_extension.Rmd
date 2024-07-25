@@ -209,7 +209,7 @@ rowData(sce)$n_cells <- rowSums(assay(sce, "tophat_counts") > 0)
 sce
 ```
 
-Then, as pointed out earlier, you are free to launch another `r BiocStyle::Biocpkg("iSEE")` again at any point in an analytical workflow.
+Then, as pointed out earlier, you are free to launch another `r BiocStyle::Biocpkg("iSEE")` app again at any point in an analytical workflow.
 
 The `iSEE()` function automatically detects new assay data and metadata in the updated object, populating the application components with all the available information, old and new.
 
