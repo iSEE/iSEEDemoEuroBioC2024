@@ -151,7 +151,7 @@ iSEE(sce)
 
 <br/>
 
-In the screenshot above, you will notice that some of the panels are truncated at the bottom.
+In the screenshot above, you will notice that some of the panels seem to be truncated at the bottom.
 
 `r BiocStyle::Biocpkg("iSEE")` applications organise panels along a single-page layout.
 Following `r BiocStyle::CRANpkg("shiny")` rules, pages are divided into 12 units horizontally, allowing up to 12 panels on a row before new rows are added to accommodate more panels.
