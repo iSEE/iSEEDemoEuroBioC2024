@@ -2,10 +2,8 @@ pandoc: '3.2'
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
-  HOWTO_BUILD_WORKSHOP: HOWTO_BUILD_WORKSHOP.html
-  workshop_example: workshop_example.html
   workshop_isee_extension: workshop_isee_extension.html
-last_built: 2024-07-10T20:58Z
+last_built: 2024-07-25T11:22Z
 urls:
-  reference: https://seandavi.github.io/BuildABiocWorkshop/reference
-  article: https://seandavi.github.io/BuildABiocWorkshop/articles
+  reference: https://isee.github.io/iSEEDemoEuroBioC2024/reference
+  article: https://isee.github.io/iSEEDemoEuroBioC2024/articles
