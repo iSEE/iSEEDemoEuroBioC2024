@@ -98,6 +98,15 @@ An example for a 40-minute workshop:
 
 ## iSEE functionality
 
+### Overview
+
+In the next 10 minutes, we will:
+
+* Load a demonstration data set
+* Launch an iSEE app in its default state
+* Export an R script representing a modified app state
+* Re-launch the same iSEE app preconfigured in that modified state
+
 ### Input data
 
 `r BiocStyle::Biocpkg("iSEE")` was designed around the `r BiocStyle::Biocpkg("SummarizedExperiment")` class, a container widely used throughout the *Bioconductor* project.
@@ -308,15 +317,6 @@ iSEE(sce, initial = initial)
 ```
 
 ![Screenshot of iSEE app launched in a predefined initial configuration.](img/iSEE_initial.png)
-
-Plan:
-
-* Load a data set (done)
-* Launch the default app (done)
-* Export the R script of the app state
-* Re-launch the app using the script
-
-(Remember: 10 min)
 
 ## Existing iSEE extensions
 
