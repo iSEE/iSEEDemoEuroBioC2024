@@ -343,6 +343,13 @@ In the next 10 minutes, we will:
 
 The `r BiocStyle::Biocpkg("iSEEpathways")` vignette [Integration with other panels](https://isee.github.io/iSEEpathways/articles/integration.html) can also be accessed locally using the R code `vignette("integration", package = "iSEEpathways")`.
 
+In this part, we load the 
+
+```{r}
+library(airway)
+```
+
+
 Plan:
 
 * Run code from the iSEEpathways vignette https://isee.github.io/iSEEpathways/articles/integration.html
