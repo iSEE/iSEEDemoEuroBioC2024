@@ -39,7 +39,8 @@ Imports:
     iSEEindex,
     iSEEpathways,
     iSEEu
-Suggests: 
+Suggests:
+    airway,
     knitr,
     rmarkdown,
     pkgdown,
