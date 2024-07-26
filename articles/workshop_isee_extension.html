@@ -400,8 +400,7 @@ again at any point in an analytical workflow.</p>
 and metadata in the updated object, populating the application
 components with all the available information, old and new.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iSEE/iSEE" class="external-link">iSEE</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEE_default_2.png" alt="Screenshot of iSEE app."><div class="figcaption">Screenshot of iSEE app.</div>
 </div>
@@ -414,10 +413,96 @@ all other panels have shifted position down in the order of the layout
 any dimensionality reduction result. The <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE()</a></code> function
 automatically detected that, and dropped that type of panel from the
 application.</p>
+<p>To demonstrate the next functionality, let us interactively (within
+the app launched above) remove all the panels except for ‘Reduced
+dimension plot 1’ and ‘Feature assay plot 1’. Then, use the download
+icon in the navigation bar at the top of the app to find and click the
+‘Display panel settings’ button. You will be presented with an R script
+that looks as follows:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">initial</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">################################################################################</span></span>
+<span><span class="co"># Settings for Reduced dimension plot 1</span></span>
+<span><span class="co">################################################################################</span></span>
+<span></span>
+<span><span class="va">initial</span><span class="op">[[</span><span class="st">"ReducedDimensionPlot1"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">new</span><span class="op">(</span><span class="st">"ReducedDimensionPlot"</span>, Type <span class="op">=</span> <span class="st">"PCA"</span>, XAxis <span class="op">=</span> <span class="fl">1L</span>, YAxis <span class="op">=</span> <span class="fl">2L</span>, </span>
+<span>    FacetRowByColData <span class="op">=</span> <span class="st">"driver_1_s"</span>, FacetColumnByColData <span class="op">=</span> <span class="st">"driver_1_s"</span>, </span>
+<span>    ColorByColumnData <span class="op">=</span> <span class="st">"NREADS"</span>, ColorByFeatureNameAssay <span class="op">=</span> <span class="st">"logcounts"</span>, </span>
+<span>    ColorBySampleNameColor <span class="op">=</span> <span class="st">"#FF0000"</span>, ShapeByColumnData <span class="op">=</span> <span class="st">"driver_1_s"</span>, </span>
+<span>    SizeByColumnData <span class="op">=</span> <span class="st">"NREADS"</span>, TooltipColumnData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, </span>
+<span>    FacetRowBy <span class="op">=</span> <span class="st">"None"</span>, FacetColumnBy <span class="op">=</span> <span class="st">"None"</span>, ColorBy <span class="op">=</span> <span class="st">"None"</span>, </span>
+<span>    ColorByDefaultColor <span class="op">=</span> <span class="st">"#000000"</span>, ColorByFeatureName <span class="op">=</span> <span class="st">"0610007P14Rik"</span>, </span>
+<span>    ColorByFeatureSource <span class="op">=</span> <span class="st">"---"</span>, ColorByFeatureDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    ColorBySampleName <span class="op">=</span> <span class="st">"SRR2140028"</span>, ColorBySampleSource <span class="op">=</span> <span class="st">"---"</span>, </span>
+<span>    ColorBySampleDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, ShapeBy <span class="op">=</span> <span class="st">"None"</span>, SizeBy <span class="op">=</span> <span class="st">"None"</span>, </span>
+<span>    SelectionAlpha <span class="op">=</span> <span class="fl">0.1</span>, ZoomData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, BrushData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, </span>
+<span>    VisualBoxOpen <span class="op">=</span> <span class="cn">FALSE</span>, VisualChoices <span class="op">=</span> <span class="st">"Color"</span>, ContourAdd <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    ContourColor <span class="op">=</span> <span class="st">"#0000FF"</span>, PointSize <span class="op">=</span> <span class="fl">1</span>, PointAlpha <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>    Downsample <span class="op">=</span> <span class="cn">FALSE</span>, DownsampleResolution <span class="op">=</span> <span class="fl">200</span>, CustomLabels <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    CustomLabelsText <span class="op">=</span> <span class="st">"SRR2140028"</span>, FontSize <span class="op">=</span> <span class="fl">1</span>, LegendPointSize <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>    LegendPosition <span class="op">=</span> <span class="st">"Bottom"</span>, HoverInfo <span class="op">=</span> <span class="cn">TRUE</span>, LabelCenters <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    LabelCentersBy <span class="op">=</span> <span class="st">"driver_1_s"</span>, LabelCentersColor <span class="op">=</span> <span class="st">"#000000"</span>, </span>
+<span>    VersionInfo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>iSEE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2L</span>, <span class="fl">17L</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span>, class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"package_version"</span>, </span>
+<span>    <span class="st">"numeric_version"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, PanelId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ReducedDimensionPlot <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>, </span>
+<span>    PanelHeight <span class="op">=</span> <span class="fl">500L</span>, PanelWidth <span class="op">=</span> <span class="fl">4L</span>, SelectionBoxOpen <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    RowSelectionSource <span class="op">=</span> <span class="st">"---"</span>, ColumnSelectionSource <span class="op">=</span> <span class="st">"---"</span>, </span>
+<span>    DataBoxOpen <span class="op">=</span> <span class="cn">FALSE</span>, RowSelectionDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, ColumnSelectionDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    RowSelectionRestrict <span class="op">=</span> <span class="cn">FALSE</span>, ColumnSelectionRestrict <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    SelectionHistory <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">################################################################################</span></span>
+<span><span class="co"># Settings for Feature assay plot 1</span></span>
+<span><span class="co">################################################################################</span></span>
+<span></span>
+<span><span class="va">initial</span><span class="op">[[</span><span class="st">"FeatureAssayPlot1"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">new</span><span class="op">(</span><span class="st">"FeatureAssayPlot"</span>, Assay <span class="op">=</span> <span class="st">"logcounts"</span>, XAxis <span class="op">=</span> <span class="st">"None"</span>, </span>
+<span>    XAxisColumnData <span class="op">=</span> <span class="st">"NREADS"</span>, XAxisFeatureName <span class="op">=</span> <span class="st">"0610007P14Rik"</span>, </span>
+<span>    XAxisFeatureSource <span class="op">=</span> <span class="st">"---"</span>, XAxisFeatureDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    YAxisFeatureName <span class="op">=</span> <span class="st">"0610007P14Rik"</span>, YAxisFeatureSource <span class="op">=</span> <span class="st">"---"</span>, </span>
+<span>    YAxisFeatureDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, FacetRowByColData <span class="op">=</span> <span class="st">"driver_1_s"</span>, </span>
+<span>    FacetColumnByColData <span class="op">=</span> <span class="st">"driver_1_s"</span>, ColorByColumnData <span class="op">=</span> <span class="st">"NREADS"</span>, </span>
+<span>    ColorByFeatureNameAssay <span class="op">=</span> <span class="st">"logcounts"</span>, ColorBySampleNameColor <span class="op">=</span> <span class="st">"#FF0000"</span>, </span>
+<span>    ShapeByColumnData <span class="op">=</span> <span class="st">"driver_1_s"</span>, SizeByColumnData <span class="op">=</span> <span class="st">"NREADS"</span>, </span>
+<span>    TooltipColumnData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, FacetRowBy <span class="op">=</span> <span class="st">"None"</span>, FacetColumnBy <span class="op">=</span> <span class="st">"None"</span>, </span>
+<span>    ColorBy <span class="op">=</span> <span class="st">"None"</span>, ColorByDefaultColor <span class="op">=</span> <span class="st">"#000000"</span>, ColorByFeatureName <span class="op">=</span> <span class="st">"0610007P14Rik"</span>, </span>
+<span>    ColorByFeatureSource <span class="op">=</span> <span class="st">"---"</span>, ColorByFeatureDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    ColorBySampleName <span class="op">=</span> <span class="st">"SRR2140028"</span>, ColorBySampleSource <span class="op">=</span> <span class="st">"---"</span>, </span>
+<span>    ColorBySampleDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, ShapeBy <span class="op">=</span> <span class="st">"None"</span>, SizeBy <span class="op">=</span> <span class="st">"None"</span>, </span>
+<span>    SelectionAlpha <span class="op">=</span> <span class="fl">0.1</span>, ZoomData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, BrushData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, </span>
+<span>    VisualBoxOpen <span class="op">=</span> <span class="cn">FALSE</span>, VisualChoices <span class="op">=</span> <span class="st">"Color"</span>, ContourAdd <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    ContourColor <span class="op">=</span> <span class="st">"#0000FF"</span>, PointSize <span class="op">=</span> <span class="fl">1</span>, PointAlpha <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>    Downsample <span class="op">=</span> <span class="cn">FALSE</span>, DownsampleResolution <span class="op">=</span> <span class="fl">200</span>, CustomLabels <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    CustomLabelsText <span class="op">=</span> <span class="st">"SRR2140028"</span>, FontSize <span class="op">=</span> <span class="fl">1</span>, LegendPointSize <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>    LegendPosition <span class="op">=</span> <span class="st">"Bottom"</span>, HoverInfo <span class="op">=</span> <span class="cn">TRUE</span>, LabelCenters <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    LabelCentersBy <span class="op">=</span> <span class="st">"driver_1_s"</span>, LabelCentersColor <span class="op">=</span> <span class="st">"#000000"</span>, </span>
+<span>    VersionInfo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>iSEE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2L</span>, <span class="fl">17L</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span>, class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"package_version"</span>, </span>
+<span>    <span class="st">"numeric_version"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, PanelId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>FeatureAssayPlot <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>, </span>
+<span>    PanelHeight <span class="op">=</span> <span class="fl">500L</span>, PanelWidth <span class="op">=</span> <span class="fl">4L</span>, SelectionBoxOpen <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    RowSelectionSource <span class="op">=</span> <span class="st">"---"</span>, ColumnSelectionSource <span class="op">=</span> <span class="st">"---"</span>, </span>
+<span>    DataBoxOpen <span class="op">=</span> <span class="cn">FALSE</span>, RowSelectionDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, ColumnSelectionDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    RowSelectionRestrict <span class="op">=</span> <span class="cn">FALSE</span>, ColumnSelectionRestrict <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    SelectionHistory <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The above R script creates an object called <code>initial</code> that
+contains all the information necessary for the <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE()</a></code>
+function to launch an app in a specific initial state.</p>
+<p>All we need to do is:</p>
+<ul>
+<li>Run that R script, to create the <code>initial</code> object that
+represents the initial state of the app</li>
+<li>Pass this <code>initial</code> object to the <code>initial=</code>
+argument of the <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE()</a></code> function, to launch a new app in the
+desired initial state</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="va">initial</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/iSEE_initial.png" alt="Screenshot of iSEE app launched in a predefined initial configuration."><div class="figcaption">Screenshot of iSEE app launched in a predefined
+initial configuration.</div>
+</div>
 <p>Plan:</p>
 <ul>
-<li>Load a data set</li>
-<li>Launch the default app</li>
+<li>Load a data set (done)</li>
+<li>Launch the default app (done)</li>
 <li>Export the R script of the app state</li>
 <li>Re-launch the app using the script</li>
 </ul>
