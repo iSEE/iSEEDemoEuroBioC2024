@@ -320,6 +320,29 @@ iSEE(sce, initial = initial)
 
 ## Existing iSEE extensions
 
+## Overview
+
+In the next 10 minutes, we will:
+
+* Run code from the iSEEpathways vignette [Integration with other panels](https://isee.github.io/iSEEpathways/articles/integration.html)
+* Launch an iSEE app that includes panels implemented in extension packages
+
+### iSEE extension packages
+
+| Package | Description                                      |
+|:--------|:-------------------------------------------------|
+| [iSEE](https://github.com/iSEE/iSEE) | Core functionality. |
+| [iSEEde](https://github.com/iSEE/iSEEde) | Extension for differential expression analysis. |
+| [iSEEhex](https://github.com/iSEE/iSEEhex) | Extension for summarisation into hexagonal bins. |
+| [iSEEhub](https://github.com/iSEE/iSEEhub) | Extension for access to the Bioconductor `r BiocStyle::Biocpkg("ExperimentHub")`. |
+| [iSEEindex](https://github.com/iSEE/iSEEindex) | Extension for access to custom collectins of local and remote data sets. |
+| [iSEEpathways](https://github.com/iSEE/iSEEpathways) | Extension for pathway analysis. |
+| [iSEEu](https://github.com/iSEE/iSEEu) | The 'iSEE universe': Extension for miscellaneous and experimental functionality. |
+
+### Input data
+
+The iSEEpathways vignette [Integration with other panels](https://isee.github.io/iSEEpathways/articles/integration.html) can also be accessed locally using the R code `vignette("integration", package = "iSEEpathways")`.
+
 Plan:
 
 * Run code from the iSEEpathways vignette https://isee.github.io/iSEEpathways/articles/integration.html
