@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(iSEE)
 ```
 
 Last modified: 09 July, 2024.
@@ -214,7 +215,6 @@ Then, as pointed out earlier, you are free to launch another `r BiocStyle::Biocp
 The `iSEE()` function automatically detects new assay data and metadata in the updated object, populating the application components with all the available information, old and new.
 
 ```{r, message=FALSE, warning=FALSE, eval=interactive()}
-library(iSEE)
 iSEE(sce)
 ```
 
@@ -227,10 +227,92 @@ Comparing the screenshot above with the earlier one, you will notice that the fi
 Indeed, the last time we launched the app, the object did not contain any dimensionality reduction result.
 The `iSEE()` function automatically detected that, and dropped that type of panel from the application.
 
+To demonstrate the next functionality, let us interactively (within the app launched above) remove all the panels except for 'Reduced dimension plot 1' and 'Feature assay plot 1'.
+Then, use the download icon in the navigation bar at the top of the app to find and click the 'Display panel settings' button.
+You will be presented with an R script that looks as follows:
+
+```{r}
+initial <- list()
+
+################################################################################
+# Settings for Reduced dimension plot 1
+################################################################################
+
+initial[["ReducedDimensionPlot1"]] <- new("ReducedDimensionPlot", Type = "PCA", XAxis = 1L, YAxis = 2L, 
+    FacetRowByColData = "driver_1_s", FacetColumnByColData = "driver_1_s", 
+    ColorByColumnData = "NREADS", ColorByFeatureNameAssay = "logcounts", 
+    ColorBySampleNameColor = "#FF0000", ShapeByColumnData = "driver_1_s", 
+    SizeByColumnData = "NREADS", TooltipColumnData = character(0), 
+    FacetRowBy = "None", FacetColumnBy = "None", ColorBy = "None", 
+    ColorByDefaultColor = "#000000", ColorByFeatureName = "0610007P14Rik", 
+    ColorByFeatureSource = "---", ColorByFeatureDynamicSource = FALSE, 
+    ColorBySampleName = "SRR2140028", ColorBySampleSource = "---", 
+    ColorBySampleDynamicSource = FALSE, ShapeBy = "None", SizeBy = "None", 
+    SelectionAlpha = 0.1, ZoomData = numeric(0), BrushData = list(), 
+    VisualBoxOpen = FALSE, VisualChoices = "Color", ContourAdd = FALSE, 
+    ContourColor = "#0000FF", PointSize = 1, PointAlpha = 1, 
+    Downsample = FALSE, DownsampleResolution = 200, CustomLabels = FALSE, 
+    CustomLabelsText = "SRR2140028", FontSize = 1, LegendPointSize = 1, 
+    LegendPosition = "Bottom", HoverInfo = TRUE, LabelCenters = FALSE, 
+    LabelCentersBy = "driver_1_s", LabelCentersColor = "#000000", 
+    VersionInfo = list(iSEE = structure(list(c(2L, 17L, 1L)), class = c("package_version", 
+    "numeric_version"))), PanelId = c(ReducedDimensionPlot = 1L), 
+    PanelHeight = 500L, PanelWidth = 4L, SelectionBoxOpen = FALSE, 
+    RowSelectionSource = "---", ColumnSelectionSource = "---", 
+    DataBoxOpen = FALSE, RowSelectionDynamicSource = FALSE, ColumnSelectionDynamicSource = FALSE, 
+    RowSelectionRestrict = FALSE, ColumnSelectionRestrict = FALSE, 
+    SelectionHistory = list())
+
+################################################################################
+# Settings for Feature assay plot 1
+################################################################################
+
+initial[["FeatureAssayPlot1"]] <- new("FeatureAssayPlot", Assay = "logcounts", XAxis = "None", 
+    XAxisColumnData = "NREADS", XAxisFeatureName = "0610007P14Rik", 
+    XAxisFeatureSource = "---", XAxisFeatureDynamicSource = FALSE, 
+    YAxisFeatureName = "0610007P14Rik", YAxisFeatureSource = "---", 
+    YAxisFeatureDynamicSource = FALSE, FacetRowByColData = "driver_1_s", 
+    FacetColumnByColData = "driver_1_s", ColorByColumnData = "NREADS", 
+    ColorByFeatureNameAssay = "logcounts", ColorBySampleNameColor = "#FF0000", 
+    ShapeByColumnData = "driver_1_s", SizeByColumnData = "NREADS", 
+    TooltipColumnData = character(0), FacetRowBy = "None", FacetColumnBy = "None", 
+    ColorBy = "None", ColorByDefaultColor = "#000000", ColorByFeatureName = "0610007P14Rik", 
+    ColorByFeatureSource = "---", ColorByFeatureDynamicSource = FALSE, 
+    ColorBySampleName = "SRR2140028", ColorBySampleSource = "---", 
+    ColorBySampleDynamicSource = FALSE, ShapeBy = "None", SizeBy = "None", 
+    SelectionAlpha = 0.1, ZoomData = numeric(0), BrushData = list(), 
+    VisualBoxOpen = FALSE, VisualChoices = "Color", ContourAdd = FALSE, 
+    ContourColor = "#0000FF", PointSize = 1, PointAlpha = 1, 
+    Downsample = FALSE, DownsampleResolution = 200, CustomLabels = FALSE, 
+    CustomLabelsText = "SRR2140028", FontSize = 1, LegendPointSize = 1, 
+    LegendPosition = "Bottom", HoverInfo = TRUE, LabelCenters = FALSE, 
+    LabelCentersBy = "driver_1_s", LabelCentersColor = "#000000", 
+    VersionInfo = list(iSEE = structure(list(c(2L, 17L, 1L)), class = c("package_version", 
+    "numeric_version"))), PanelId = c(FeatureAssayPlot = 1L), 
+    PanelHeight = 500L, PanelWidth = 4L, SelectionBoxOpen = FALSE, 
+    RowSelectionSource = "---", ColumnSelectionSource = "---", 
+    DataBoxOpen = FALSE, RowSelectionDynamicSource = FALSE, ColumnSelectionDynamicSource = FALSE, 
+    RowSelectionRestrict = FALSE, ColumnSelectionRestrict = FALSE, 
+    SelectionHistory = list())
+```
+
+The above R script creates an object called `initial` that contains all the information necessary for the `iSEE()` function to launch an app in a specific initial state.
+
+All we need to do is:
+
+* Run that R script, to create the `initial` object that represents the initial state of the app
+* Pass this `initial` object to the `initial=` argument of the `iSEE()` function, to launch a new app in the desired initial state
+
+```{r, message=FALSE, warning=FALSE, eval=interactive()}
+iSEE(sce, initial = initial)
+```
+
+![Screenshot of iSEE app launched in a predefined initial configuration.](img/iSEE_initial.png)
+
 Plan:
 
-* Load a data set
-* Launch the default app
+* Load a data set (done)
+* Launch the default app (done)
 * Export the R script of the app state
 * Re-launch the app using the script
 
