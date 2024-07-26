@@ -329,7 +329,7 @@ In the next 10 minutes, we will:
 
 ### iSEE extension packages
 
-| Package | Description                                      |
+| Package | Purpose                                          |
 |:--------|:-------------------------------------------------|
 | [iSEE](https://github.com/iSEE/iSEE) | Core functionality. |
 | [iSEEde](https://github.com/iSEE/iSEEde) | Extension for differential expression analysis. |
