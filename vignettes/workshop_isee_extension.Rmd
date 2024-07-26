@@ -341,7 +341,7 @@ In the next 10 minutes, we will:
 
 ### Input data
 
-The iSEEpathways vignette [Integration with other panels](https://isee.github.io/iSEEpathways/articles/integration.html) can also be accessed locally using the R code `vignette("integration", package = "iSEEpathways")`.
+The `r BiocStyle::Biocpkg("iSEEpathways")` vignette [Integration with other panels](https://isee.github.io/iSEEpathways/articles/integration.html) can also be accessed locally using the R code `vignette("integration", package = "iSEEpathways")`.
 
 Plan:
 
