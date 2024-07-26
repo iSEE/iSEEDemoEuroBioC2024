@@ -324,7 +324,7 @@ iSEE(sce, initial = initial)
 
 In the next 10 minutes, we will:
 
-* Run code from the iSEEpathways vignette [Integration with other panels](https://isee.github.io/iSEEpathways/articles/integration.html)
+* Load and preprocess a new demonstration data set
 * Launch an iSEE app that includes panels implemented in extension packages
 
 ### iSEE extension packages
