@@ -788,6 +788,8 @@ accurately identify the corresponding value in
 <div class="section level4">
 <h4 id="add-normalised-gene-expression">Add normalised gene expression<a class="anchor" aria-label="anchor" href="#add-normalised-gene-expression"></a>
 </h4>
+<p>We also compute log-transformed counts, for a better visualisation of
+differential expression in the live app.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"scuttle"</span><span class="op">)</span></span>
 <span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html" class="external-link">logNormCounts</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></code></pre></div>
@@ -809,16 +811,16 @@ immediately links panels to one another.</p>
 <span>    ClusterRows <span class="op">=</span> <span class="cn">TRUE</span>, ClusterRowsDistance <span class="op">=</span> <span class="st">"euclidean"</span>, AssayCenterRows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEEpathways/man/FgseaEnrichmentPlot-class.html" class="external-link">FgseaEnrichmentPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">12L</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Plan:</p>
-<ul>
-<li>Run code from the iSEEpathways vignette <a href="https://isee.github.io/iSEEpathways/articles/integration.html" class="external-link uri">https://isee.github.io/iSEEpathways/articles/integration.html</a>
-</li>
-<li>Launch the app</li>
-<li>Showcase the integration of pathways, DE, and core panels (e.g.,
-select a pathway in the results table, show those genes in the volcano
-plot and heat map)</li>
-</ul>
-<p>(Remember: 10 min)</p>
+<p>One of the most notable limitations of this app is the delay in
+re-rendering panels when users select another pathway. Most of that time
+is actually spent in the <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">mapIds()</a></code> function, querying the
+<code>org.Hs.eg.db</code> object. This bottleneck can be circumnavigated
+by storing pathways as a regular <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> in the
+<code><a href="https://rdrr.io/pkg/S4Vectors/man/Annotated-class.html" class="external-link">metadata()</a></code> slot of the <code>airway</code> object, and
+changing the mapping function to use that list instead of the
+<code>org.Hs.eg.db</code> object, as demonstrated in the section <a href="https://isee.github.io/iSEEpathways/articles/integration.html#speed-mapping" class="external-link">Trading
+off memory usage for speed</a> of the <em><a href="https://bioconductor.org/packages/3.20/iSEEpathways" class="external-link">iSEEpathways</a></em>
+vignette.</p>
 </div>
 </div>
 <div class="section level2">
