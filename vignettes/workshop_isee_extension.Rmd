@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(width)
 library(iSEE)
 ```
 
@@ -341,6 +342,8 @@ In the next 10 minutes, we will:
 
 ### Input data
 
+#### Load data
+
 The `r BiocStyle::Biocpkg("iSEEpathways")` vignette [Integration with other panels](https://isee.github.io/iSEEpathways/articles/integration.html) can also be accessed locally using the R code `vignette("integration", package = "iSEEpathways")`.
 
 In this part, we load the `r BiocStyle::Biocexptpkg("airway")` package, providing a `RangedSummarizedExperiment` object for RNA-Seq in airway smooth muscle cells.
@@ -351,22 +354,26 @@ data(airway)
 airway
 ```
 
+#### Clean up factor levels
+
 We quickly reorder the levels of the dexamethasone treatment, ensuring that the untreated level is first, and used as reference level during the upcoming differential expression analysis.
 
 ```{r}
 airway$dex <- relevel(airway$dex, "untrt")
 ```
 
+#### Convert gene identifiers to gene symbols
+
 We also take a minute to convert rownames to more recognisable gene symbols using the annotation package `r BiocStyle::Biocannopkg("org.Hs.eg.db")`.
 
 To avoid losing any information, we store a copy of the original Ensembl gene identifiers and the corresponding gene symbols in the row metadata.
 
-To make sure that rownames are unique, we use the `r BiocStyle::Biocpkg("scater")` function `uniquifyFeatureNames()`.
+To make sure that rownames are unique, we use the `r BiocStyle::Biocpkg("scuttle")` function `uniquifyFeatureNames()`.
 The function uses the gene symbol if unique; otherwise it combines it with the Ensembl gene identifier to make it unique.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library("org.Hs.eg.db")
-library("scater")
+library("scuttle")
 rowData(airway)[["ENSEMBL"]] <- rownames(airway)
 rowData(airway)[["SYMBOL"]] <- mapIds(org.Hs.eg.db, rownames(airway), "SYMBOL", "ENSEMBL")
 rowData(airway)[["uniquifyFeatureNames"]] <- uniquifyFeatureNames(
@@ -376,8 +383,76 @@ rowData(airway)[["uniquifyFeatureNames"]] <- uniquifyFeatureNames(
 rownames(airway) <- rowData(airway)[["uniquifyFeatureNames"]]
 ```
 
+#### Differential gene expression analysis
 
+We run a standard `r BiocStyle::Biocpkg("DESeq2")` analysis.
 
+```{r, message=FALSE, warning=FALSE}
+library(DESeq2)
+dds <- DESeqDataSet(airway, ~ 0 + dex + cell)
+dds <- DESeq(dds)
+res_deseq2 <- results(dds, contrast = list("dextrt", "dexuntrt"))
+head(res_deseq2)
+```
+
+We embed the results of the `r BiocStyle::Biocpkg("DESeq2")` analysis within the `airway` object using the `r BiocStyle::Biocpkg("iSEEde")` function `embedContrastResults()`.
+
+The function embeds the results in a way makes them detectable by the `iSEE()` function, and gives the possibility to store multiple differential expression results -- possibly from multiple methods such as `r BiocStyle::Biocpkg("edgeR")` and `r BiocStyle::Biocpkg("limma")` -- under different names.
+
+```{r, message=FALSE, warning=FALSE}
+library(iSEEde)
+airway <- embedContrastResults(res_deseq2, airway, name = "dex: trt vs untrt")
+airway
+```
+
+#### Pathway analysis
+
+We prepare Gene Ontology gene sets of biological pathways using `r BiocStyle::Biocannopkg("org.Hs.eg.db")`.
+
+Due to the use of `uniquifyFeatureNames()` above, we must first map pathway identifiers to the unique Ensembl gene identifier, to accurately perform pathway analysis using the feature identifiers matching those of the embedded differential expression results.
+
+```{r, message=FALSE, warning=FALSE}
+library("org.Hs.eg.db")
+pathways <- select(org.Hs.eg.db, keys(org.Hs.eg.db, "ENSEMBL"), c("GOALL"), keytype = "ENSEMBL")
+pathways <- subset(pathways, ONTOLOGYALL == "BP")
+pathways <- unique(pathways[, c("ENSEMBL", "GOALL")])
+pathways <- merge(pathways, rowData(airway)[, c("ENSEMBL", "uniquifyFeatureNames")])
+pathways <- split(pathways$uniquifyFeatureNames, pathways$GOALL)
+```
+
+We can then run a standard `r BiocStyle::Biocpkg("fgsea")` analysis.
+
+In this case, we rank genes using the log2 fold-change computed during the differential expression analysis.
+The `r BiocStyle::Biocpkg("iSEEde")` function `log2FoldChange()` is a convenient method to fetch this information as a named vector in a format immediately compatible with the `fgsea()` function.
+
+```{r}
+library("fgsea")
+set.seed(42)
+stats <- na.omit(log2FoldChange(contrastResults(airway, "dex: trt vs untrt")))
+fgseaRes <- fgsea(pathways = pathways, 
+                  stats    = stats,
+                  minSize  = 15,
+                  maxSize  = 500)
+head(fgseaRes[order(pval), ])
+```
+
+Similarly to the differential expression analysis, we embed the results of the `r BiocStyle::Biocpkg("DESeq2")` analysis within the `airway` object, this time using the `r BiocStyle::Biocpkg("iSEEpathways")` function `embedPathwaysResults()`.
+
+```{r}
+library("iSEEpathways")
+fgseaRes <- fgseaRes[order(pval), ]
+airway <- embedPathwaysResults(
+  fgseaRes, airway, name = "fgsea (p-value)", class = "fgsea",
+  pathwayType = "GO", pathwaysList = pathways, featuresStats = stats)
+airway
+```
+
+#### Add normalised gene expression
+
+```{r}
+library("scuttle")
+airway <- logNormCounts(airway)
+```
 
 
 Plan:
