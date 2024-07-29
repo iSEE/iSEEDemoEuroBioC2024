@@ -343,11 +343,41 @@ In the next 10 minutes, we will:
 
 The `r BiocStyle::Biocpkg("iSEEpathways")` vignette [Integration with other panels](https://isee.github.io/iSEEpathways/articles/integration.html) can also be accessed locally using the R code `vignette("integration", package = "iSEEpathways")`.
 
-In this part, we load the 
+In this part, we load the `r BiocStyle::Biocexptpkg("airway")` package, providing a `RangedSummarizedExperiment` object for RNA-Seq in airway smooth muscle cells.
 
 ```{r}
 library(airway)
+data(airway)
+airway
 ```
+
+We quickly reorder the levels of the dexamethasone treatment, ensuring that the untreated level is first, and used as reference level during the upcoming differential expression analysis.
+
+```{r}
+airway$dex <- relevel(airway$dex, "untrt")
+```
+
+We also take a minute to convert rownames to more recognisable gene symbols using the annotation package `r BiocStyle::Biocannopkg("org.Hs.eg.db")`.
+
+To avoid losing any information, we store a copy of the original Ensembl gene identifiers and the corresponding gene symbols in the row metadata.
+
+To make sure that rownames are unique, we use the `r BiocStyle::Biocpkg("scater")` function `uniquifyFeatureNames()`.
+The function uses the gene symbol if unique; otherwise it combines it with the Ensembl gene identifier to make it unique.
+
+```{r}
+library("org.Hs.eg.db")
+library("scater")
+rowData(airway)[["ENSEMBL"]] <- rownames(airway)
+rowData(airway)[["SYMBOL"]] <- mapIds(org.Hs.eg.db, rownames(airway), "SYMBOL", "ENSEMBL")
+rowData(airway)[["uniquifyFeatureNames"]] <- uniquifyFeatureNames(
+  ID = rowData(airway)[["ENSEMBL"]],
+  names = rowData(airway)[["SYMBOL"]]
+)
+rownames(airway) <- rowData(airway)[["uniquifyFeatureNames"]]
+```
+
+
+
 
 
 Plan:

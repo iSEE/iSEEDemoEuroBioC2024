@@ -41,10 +41,11 @@ Imports:
     iSEEu
 Suggests:
     airway,
-    knitr,
-    rmarkdown,
-    pkgdown,
     BiocStyle,
+    knitr,
+    org.Hs.eg.db,
+    pkgdown,
+    rmarkdown,
     scRNAseq,
     scater
 URL: https://isee.github.io/iSEEDemoEuroBioC2024/
