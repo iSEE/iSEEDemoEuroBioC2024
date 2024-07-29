@@ -356,6 +356,8 @@ In the next 10 minutes, we will:
 | [iSEEpathways](https://github.com/iSEE/iSEEpathways) | Extension for pathway analysis. |
 | [iSEEu](https://github.com/iSEE/iSEEu) | The 'iSEE universe': Extension for miscellaneous and experimental functionality. |
 
+In this package demo, we will showcase `r BiocStyle::Biocpkg("iSEEde")` and `r BiocStyle::Biocpkg("iSEEpathways")`.
+
 ### Input data
 
 #### Load data
