@@ -811,6 +811,11 @@ immediately links panels to one another.</p>
 <span>    ClusterRows <span class="op">=</span> <span class="cn">TRUE</span>, ClusterRowsDistance <span class="op">=</span> <span class="st">"euclidean"</span>, AssayCenterRows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEEpathways/man/FgseaEnrichmentPlot-class.html" class="external-link">FgseaEnrichmentPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">12L</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/iSEEpathways_integration.png" alt="Screenshot of iSEE app including extension panels and launched in a predefined initial configuration."><div class="figcaption">Screenshot of iSEE app including extension
+panels and launched in a predefined initial configuration.</div>
+</div>
+<p><br></p>
 <p>One of the most notable limitations of this app is the delay in
 re-rendering panels when users select another pathway. Most of that time
 is actually spent in the <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">mapIds()</a></code> function, querying the
