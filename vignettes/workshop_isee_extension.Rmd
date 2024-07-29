@@ -484,6 +484,8 @@ airway <- registerAppOptions(airway, Pathways.map.functions = list(GO = map_GO))
 
 #### Add normalised gene expression
 
+We also compute log-transformed counts, for a better visualisation of differential expression in the live app.
+
 ```{r}
 library("scuttle")
 airway <- logNormCounts(airway)
@@ -506,14 +508,9 @@ iSEE(airway, initial = list(
 ))
 ```
 
-Plan:
-
-* Run code from the iSEEpathways vignette https://isee.github.io/iSEEpathways/articles/integration.html
-* Launch the app
-* Showcase the integration of pathways, DE, and core panels
-  (e.g., select a pathway in the results table, show those genes in the volcano plot and heat map)
-
-(Remember: 10 min)
+One of the most notable limitations of this app is the delay in re-rendering panels when users select another pathway.
+Most of that time is actually spent in the `mapIds()` function, querying the `org.Hs.eg.db` object.
+This bottleneck can be circumnavigated by storing pathways as a regular `list()` in the `metadata()` slot of the `airway` object, and changing the mapping function to use that list instead of the `org.Hs.eg.db` object, as demonstrated in the section [Trading off memory usage for speed](https://isee.github.io/iSEEpathways/articles/integration.html#speed-mapping) of the `r BiocStyle::Biocpkg("iSEEpathways")` vignette.
 
 ## Writing iSEE extensions
 
