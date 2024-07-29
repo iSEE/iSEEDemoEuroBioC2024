@@ -508,6 +508,10 @@ iSEE(airway, initial = list(
 ))
 ```
 
+![Screenshot of iSEE app including extension panels and launched in a predefined initial configuration.](img/iSEEpathways_integration.png)
+
+<br/>
+
 One of the most notable limitations of this app is the delay in re-rendering panels when users select another pathway.
 Most of that time is actually spent in the `mapIds()` function, querying the `org.Hs.eg.db` object.
 This bottleneck can be circumnavigated by storing pathways as a regular `list()` in the `metadata()` slot of the `airway` object, and changing the mapping function to use that list instead of the `org.Hs.eg.db` object, as demonstrated in the section [Trading off memory usage for speed](https://isee.github.io/iSEEpathways/articles/integration.html#speed-mapping) of the `r BiocStyle::Biocpkg("iSEEpathways")` vignette.
