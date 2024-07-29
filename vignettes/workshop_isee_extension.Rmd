@@ -415,7 +415,7 @@ head(res_deseq2)
 
 We embed the results of the `r BiocStyle::Biocpkg("DESeq2")` analysis within the `airway` object using the `r BiocStyle::Biocpkg("iSEEde")` function `embedContrastResults()`.
 
-The function embeds the results in a way makes them detectable by the `iSEE()` function, and gives the possibility to store multiple differential expression results -- possibly from multiple methods such as `r BiocStyle::Biocpkg("edgeR")` and `r BiocStyle::Biocpkg("limma")` -- under different names.
+The function embeds the results in a structured way makes them detectable by the `iSEE()` function, and gives the possibility to store multiple differential expression results -- possibly from multiple methods such as `r BiocStyle::Biocpkg("edgeR")` and `r BiocStyle::Biocpkg("limma")` -- under different names.
 
 ```{r, message=FALSE, warning=FALSE}
 library(iSEEde)
@@ -442,6 +442,7 @@ We can then run a standard `r BiocStyle::Biocpkg("fgsea")` analysis.
 
 In this case, we rank genes using the log2 fold-change computed during the differential expression analysis.
 The `r BiocStyle::Biocpkg("iSEEde")` function `log2FoldChange()` is a convenient method to fetch this information as a named vector in a format immediately compatible with the `fgsea()` function.
+The `r BiocStyle::Biocpkg("iSEEde")` function `contrastResults()` is used to fetch embedded results by name.
 
 ```{r}
 library("fgsea")
@@ -465,6 +466,22 @@ airway <- embedPathwaysResults(
 airway
 ```
 
+#### Mapping pathways to genes
+
+Separately, it is necessary to define and register a function that fetches the gene identifiers associated with a given pathway identifier.
+This function is required to transmit selections from pathway-level panels to feature-level panels.
+
+Due to the use of `uniquifyFeatureNames()` above, the function must first map to the unique Ensembl gene identifier, to accurately identify the corresponding value in `rownames(airway)`.
+
+```{r}
+map_GO <- function(pathway_id, se) {
+    pathway_ensembl <- mapIds(org.Hs.eg.db, pathway_id, "ENSEMBL", keytype = "GOALL", multiVals = "CharacterList")[[pathway_id]]
+    pathway_rownames <- rownames(se)[rowData(se)[["gene_id"]] %in% pathway_ensembl]
+    pathway_rownames
+}
+airway <- registerAppOptions(airway, Pathways.map.functions = list(GO = map_GO))
+```
+
 #### Add normalised gene expression
 
 ```{r}
@@ -472,6 +489,22 @@ library("scuttle")
 airway <- logNormCounts(airway)
 ```
 
+### Live app
+
+Finally, we can preconfigure the initial state of an app that immediately links panels to one another.
+
+```{r, message=FALSE, warning=FALSE, eval=interactive()}
+iSEE(airway, initial = list(
+  PathwaysTable(PanelWidth = 4L),
+  VolcanoPlot(PanelWidth = 4L,
+    RowSelectionSource = "PathwaysTable1", ColorBy = "Row selection"),
+  ComplexHeatmapPlot(PanelWidth = 4L,
+    RowSelectionSource = "PathwaysTable1",
+    CustomRows = FALSE, ColumnData = "dex",
+    ClusterRows = TRUE, ClusterRowsDistance = "euclidean", AssayCenterRows = TRUE),
+  FgseaEnrichmentPlot(PanelWidth = 12L)
+))
+```
 
 Plan:
 

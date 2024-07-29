@@ -42,6 +42,7 @@ Imports:
 Suggests:
     airway,
     BiocStyle,
+    fgsea,
     knitr,
     org.Hs.eg.db,
     pkgdown,
