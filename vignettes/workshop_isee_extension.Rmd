@@ -318,6 +318,8 @@ iSEE(sce, initial = initial)
 
 ![Screenshot of iSEE app launched in a predefined initial configuration.](img/iSEE_initial.png)
 
+<br/>
+
 `r fontawesome::fa("circle-info")` It is useful to note that it is not always necessary to copy-paste R scripts from within the app.
 
 With experience, users can learn to write short scripts from scratch.
