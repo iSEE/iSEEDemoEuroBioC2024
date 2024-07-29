@@ -318,6 +318,21 @@ iSEE(sce, initial = initial)
 
 ![Screenshot of iSEE app launched in a predefined initial configuration.](img/iSEE_initial.png)
 
+`r fontawesome::fa("circle-info")` It is useful to note that it is not always necessary to copy-paste R scripts from within the app.
+
+With experience, users can learn to write short scripts from scratch.
+For instance, the same initial state illustrated above can be achieved using the following script:
+
+```{r}
+initial <- list(
+    ReducedDimensionPlot(),
+    FeatureAssayPlot()
+)
+```
+
+`r fontawesome::fa("triangle-exclamation")` Note that any setting not specified in the R script will be set to a default value that might change in the future.
+The full R scripts reported by the app ensure complete reproducibility.
+
 ## Existing iSEE extensions
 
 ## Overview
