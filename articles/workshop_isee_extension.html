@@ -511,6 +511,22 @@ desired initial state</li>
 <img src="img/iSEE_initial.png" alt="Screenshot of iSEE app launched in a predefined initial configuration."><div class="figcaption">Screenshot of iSEE app launched in a predefined
 initial configuration.</div>
 </div>
+<p><br></p>
+<p><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path></svg>
+It is useful to note that it is not always necessary to copy-paste R
+scripts from within the app.</p>
+<p>With experience, users can learn to write short scripts from scratch.
+For instance, the same initial state illustrated above can be achieved
+using the following script:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">initial</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/FeatureAssayPlot-class.html" class="external-link">FeatureAssayPlot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg>
+Note that any setting not specified in the R script will be set to a
+default value that might change in the future. The full R scripts
+reported by the app ensure complete reproducibility.</p>
 </div>
 </div>
 <div class="section level2">
@@ -571,10 +587,15 @@ experimental functionality.</td>
 </tr>
 </tbody>
 </table>
+<p>In this package demo, we will showcase <em><a href="https://bioconductor.org/packages/3.20/iSEEde" class="external-link">iSEEde</a></em> and
+<em><a href="https://bioconductor.org/packages/3.20/iSEEpathways" class="external-link">iSEEpathways</a></em>.</p>
 </div>
 <div class="section level3">
 <h3 id="input-data-1">Input data<a class="anchor" aria-label="anchor" href="#input-data-1"></a>
 </h3>
+<div class="section level4">
+<h4 id="load-data">Load data<a class="anchor" aria-label="anchor" href="#load-data"></a>
+</h4>
 <p>The <em><a href="https://bioconductor.org/packages/3.20/iSEEpathways" class="external-link">iSEEpathways</a></em>
 vignette <a href="https://isee.github.io/iSEEpathways/articles/integration.html" class="external-link">Integration
 with other panels</a> can also be accessed locally using the R code
@@ -582,7 +603,7 @@ with other panels</a> can also be accessed locally using the R code
 <p>In this part, we load the <em><a href="https://bioconductor.org/packages/3.20/airway" class="external-link">airway</a></em>
 package, providing a <code>RangedSummarizedExperiment</code> object for
 RNA-Seq in airway smooth muscle cells.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
 <span><span class="va">airway</span></span>
@@ -595,33 +616,199 @@ RNA-Seq in airway smooth muscle cells.</p>
 <span><span class="co">#&gt; rowData names(10): gene_id gene_name ... seq_coord_system symbol</span></span>
 <span><span class="co">#&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521</span></span>
 <span><span class="co">#&gt; colData names(9): SampleName cell ... Sample BioSample</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="clean-up-factor-levels">Clean up factor levels<a class="anchor" aria-label="anchor" href="#clean-up-factor-levels"></a>
+</h4>
 <p>We quickly reorder the levels of the dexamethasone treatment,
 ensuring that the untreated level is first, and used as reference level
 during the upcoming differential expression analysis.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">airway</span><span class="op">$</span><span class="va">dex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="va">airway</span><span class="op">$</span><span class="va">dex</span>, <span class="st">"untrt"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="convert-gene-identifiers-to-gene-symbols">Convert gene identifiers to gene symbols<a class="anchor" aria-label="anchor" href="#convert-gene-identifiers-to-gene-symbols"></a>
+</h4>
 <p>We also take a minute to convert rownames to more recognisable gene
 symbols using the annotation package <em><a href="https://bioconductor.org/packages/3.20/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em>.</p>
 <p>To avoid losing any information, we store a copy of the original
 Ensembl gene identifiers and the corresponding gene symbols in the row
 metadata.</p>
-<p>To make sure that rownames are unique, we use the <em><a href="https://bioconductor.org/packages/3.20/scater" class="external-link">scater</a></em>
+<p>To make sure that rownames are unique, we use the <em><a href="https://bioconductor.org/packages/3.20/scuttle" class="external-link">scuttle</a></em>
 function <code><a href="https://rdrr.io/pkg/scuttle/man/uniquifyFeatureNames.html" class="external-link">uniquifyFeatureNames()</a></code>. The function uses the gene
 symbol if unique; otherwise it combines it with the Ensembl gene
 identifier to make it unique.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"org.Hs.eg.db"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: AnnotationDbi</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="http://bioconductor.org/packages/scater/" class="external-link">"scater"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"scuttle"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[[</span><span class="st">"ENSEMBL"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[[</span><span class="st">"SYMBOL"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">mapIds</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>, <span class="st">"SYMBOL"</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 'select()' returned 1:many mapping between keys and columns</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[[</span><span class="st">"uniquifyFeatureNames"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/uniquifyFeatureNames.html" class="external-link">uniquifyFeatureNames</a></span><span class="op">(</span></span>
 <span>  ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[[</span><span class="st">"ENSEMBL"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[[</span><span class="st">"SYMBOL"</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[[</span><span class="st">"uniquifyFeatureNames"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="differential-gene-expression-analysis">Differential gene expression analysis<a class="anchor" aria-label="anchor" href="#differential-gene-expression-analysis"></a>
+</h4>
+<p>We run a standard <em><a href="https://bioconductor.org/packages/3.20/DESeq2" class="external-link">DESeq2</a></em>
+analysis.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thelovelab/DESeq2" class="external-link">DESeq2</a></span><span class="op">)</span></span>
+<span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSet</a></span><span class="op">(</span><span class="va">airway</span>, <span class="op">~</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">dex</span> <span class="op">+</span> <span class="va">cell</span><span class="op">)</span></span>
+<span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
+<span><span class="va">res_deseq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"dextrt"</span>, <span class="st">"dexuntrt"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res_deseq2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; log2 fold change (MLE): dextrt vs dexuntrt </span></span>
+<span><span class="co">#&gt; Wald test p-value: dextrt vs dexuntrt </span></span>
+<span><span class="co">#&gt; DataFrame with 6 rows and 6 columns</span></span>
+<span><span class="co">#&gt;          baseMean log2FoldChange     lfcSE      stat      pvalue       padj</span></span>
+<span><span class="co">#&gt;         &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;   &lt;numeric&gt;  &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; TSPAN6 708.602170     -0.3812539  0.100654 -3.787752 0.000152016 0.00128292</span></span>
+<span><span class="co">#&gt; TNMD     0.000000             NA        NA        NA          NA         NA</span></span>
+<span><span class="co">#&gt; DPM1   520.297901      0.2068127  0.112219  1.842944 0.065337213 0.19646961</span></span>
+<span><span class="co">#&gt; SCYL3  237.163037      0.0379205  0.143445  0.264356 0.791505314 0.91141884</span></span>
+<span><span class="co">#&gt; FIRRM   57.932633     -0.0881679  0.287142 -0.307054 0.758802543 0.89500551</span></span>
+<span><span class="co">#&gt; FGR      0.318098     -1.3782416  3.499906 -0.393794 0.693733216         NA</span></span></code></pre></div>
+<p>We embed the results of the <em><a href="https://bioconductor.org/packages/3.20/DESeq2" class="external-link">DESeq2</a></em>
+analysis within the <code>airway</code> object using the <em><a href="https://bioconductor.org/packages/3.20/iSEEde" class="external-link">iSEEde</a></em>
+function <code><a href="https://rdrr.io/pkg/iSEEde/man/utils-SummarizedExperiment.html" class="external-link">embedContrastResults()</a></code>.</p>
+<p>The function embeds the results in a structured way makes them
+detectable by the <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE()</a></code> function, and gives the
+possibility to store multiple differential expression results – possibly
+from multiple methods such as <em><a href="https://bioconductor.org/packages/3.20/edgeR" class="external-link">edgeR</a></em> and
+<em><a href="https://bioconductor.org/packages/3.20/limma" class="external-link">limma</a></em> –
+under different names.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iSEE/iSEEde" class="external-link">iSEEde</a></span><span class="op">)</span></span>
+<span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEEde/man/utils-SummarizedExperiment.html" class="external-link">embedContrastResults</a></span><span class="op">(</span><span class="va">res_deseq2</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"dex: trt vs untrt"</span><span class="op">)</span></span>
+<span><span class="va">airway</span></span>
+<span><span class="co">#&gt; class: RangedSummarizedExperiment </span></span>
+<span><span class="co">#&gt; dim: 63677 8 </span></span>
+<span><span class="co">#&gt; metadata(1): ''</span></span>
+<span><span class="co">#&gt; assays(1): counts</span></span>
+<span><span class="co">#&gt; rownames(63677): TSPAN6 TNMD ... APP-DT ENSG00000273493</span></span>
+<span><span class="co">#&gt; rowData names(14): gene_id gene_name ... uniquifyFeatureNames iSEEde</span></span>
+<span><span class="co">#&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521</span></span>
+<span><span class="co">#&gt; colData names(9): SampleName cell ... Sample BioSample</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="pathway-analysis">Pathway analysis<a class="anchor" aria-label="anchor" href="#pathway-analysis"></a>
+</h4>
+<p>We prepare Gene Ontology gene sets of biological pathways using
+<em><a href="https://bioconductor.org/packages/3.20/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em>.</p>
+<p>Due to the use of <code><a href="https://rdrr.io/pkg/scuttle/man/uniquifyFeatureNames.html" class="external-link">uniquifyFeatureNames()</a></code> above, we must
+first map pathway identifiers to the unique Ensembl gene identifier, to
+accurately perform pathway analysis using the feature identifiers
+matching those of the embedded differential expression results.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"org.Hs.eg.db"</span><span class="op">)</span></span>
+<span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">keys</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GOALL"</span><span class="op">)</span>, keytype <span class="op">=</span> <span class="st">"ENSEMBL"</span><span class="op">)</span></span>
+<span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">pathways</span>, <span class="va">ONTOLOGYALL</span> <span class="op">==</span> <span class="st">"BP"</span><span class="op">)</span></span>
+<span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">pathways</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSEMBL"</span>, <span class="st">"GOALL"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">pathways</span>, <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSEMBL"</span>, <span class="st">"uniquifyFeatureNames"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/splitAsList.html" class="external-link">split</a></span><span class="op">(</span><span class="va">pathways</span><span class="op">$</span><span class="va">uniquifyFeatureNames</span>, <span class="va">pathways</span><span class="op">$</span><span class="va">GOALL</span><span class="op">)</span></span></code></pre></div>
+<p>We can then run a standard <em><a href="https://bioconductor.org/packages/3.20/fgsea" class="external-link">fgsea</a></em>
+analysis.</p>
+<p>In this case, we rank genes using the log2 fold-change computed
+during the differential expression analysis. The <em><a href="https://bioconductor.org/packages/3.20/iSEEde" class="external-link">iSEEde</a></em>
+function <code><a href="https://rdrr.io/pkg/iSEEde/man/de-generics.html" class="external-link">log2FoldChange()</a></code> is a convenient method to fetch
+this information as a named vector in a format immediately compatible
+with the <code><a href="https://rdrr.io/pkg/fgsea/man/fgsea.html" class="external-link">fgsea()</a></code> function. The <em><a href="https://bioconductor.org/packages/3.20/iSEEde" class="external-link">iSEEde</a></em>
+function <code><a href="https://rdrr.io/pkg/iSEEde/man/contrastResults.html" class="external-link">contrastResults()</a></code> is used to fetch embedded
+results by name.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/ctlab/fgsea/" class="external-link">"fgsea"</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/iSEEde/man/de-generics.html" class="external-link">log2FoldChange</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/iSEEde/man/contrastResults.html" class="external-link">contrastResults</a></span><span class="op">(</span><span class="va">airway</span>, <span class="st">"dex: trt vs untrt"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">fgseaRes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/fgsea/man/fgsea.html" class="external-link">fgsea</a></span><span class="op">(</span>pathways <span class="op">=</span> <span class="va">pathways</span>, </span>
+<span>                  stats    <span class="op">=</span> <span class="va">stats</span>,</span>
+<span>                  minSize  <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>                  maxSize  <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in preparePathwaysAndStats(pathways, stats, minSize, maxSize, gseaParam, : There are ties in the preranked stats (25.61% of the list).</span></span>
+<span><span class="co">#&gt; The order of those tied genes will be arbitrary, which may produce unexpected results.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fgseaRes</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">pval</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       pathway         pval        padj   log2err        ES      NES  size</span></span>
+<span><span class="co">#&gt;        &lt;char&gt;        &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt;    &lt;num&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1: GO:0071294 5.864480e-07 0.002487553 0.6594444 0.8124702 2.239911    19</span></span>
+<span><span class="co">#&gt; 2: GO:0061687 1.034325e-06 0.002487553 0.6435518 0.8176539 2.198248    17</span></span>
+<span><span class="co">#&gt; 3: GO:0071280 2.768611e-06 0.004439007 0.6272567 0.7601160 2.189482    22</span></span>
+<span><span class="co">#&gt; 4: GO:0035357 5.771481e-06 0.006535683 0.6105269 0.7534512 2.189955    23</span></span>
+<span><span class="co">#&gt; 5: GO:0097501 6.947335e-06 0.006535683 0.6105269 0.8018175 2.097399    16</span></span>
+<span><span class="co">#&gt; 6: GO:0043501 8.152619e-06 0.006535683 0.5933255 0.7557131 2.157048    21</span></span>
+<span><span class="co">#&gt;     leadingEdge</span></span>
+<span><span class="co">#&gt;          &lt;list&gt;</span></span>
+<span><span class="co">#&gt; 1: MT1X, MT....</span></span>
+<span><span class="co">#&gt; 2: MT1X, MT....</span></span>
+<span><span class="co">#&gt; 3: MT1X, MT....</span></span>
+<span><span class="co">#&gt; 4: ALOX15B,....</span></span>
+<span><span class="co">#&gt; 5: MT1X, MT....</span></span>
+<span><span class="co">#&gt; 6: TRIM63, ....</span></span></code></pre></div>
+<p>Similarly to the differential expression analysis, we embed the
+results of the <em><a href="https://bioconductor.org/packages/3.20/DESeq2" class="external-link">DESeq2</a></em>
+analysis within the <code>airway</code> object, this time using the
+<em><a href="https://bioconductor.org/packages/3.20/iSEEpathways" class="external-link">iSEEpathways</a></em>
+function <code><a href="https://rdrr.io/pkg/iSEEpathways/man/utils-SummarizedExperiment.html" class="external-link">embedPathwaysResults()</a></code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/iSEE/iSEEpathways" class="external-link">"iSEEpathways"</a></span><span class="op">)</span></span>
+<span><span class="va">fgseaRes</span> <span class="op">&lt;-</span> <span class="va">fgseaRes</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">pval</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEEpathways/man/utils-SummarizedExperiment.html" class="external-link">embedPathwaysResults</a></span><span class="op">(</span></span>
+<span>  <span class="va">fgseaRes</span>, <span class="va">airway</span>, name <span class="op">=</span> <span class="st">"fgsea (p-value)"</span>, class <span class="op">=</span> <span class="st">"fgsea"</span>,</span>
+<span>  pathwayType <span class="op">=</span> <span class="st">"GO"</span>, pathwaysList <span class="op">=</span> <span class="va">pathways</span>, featuresStats <span class="op">=</span> <span class="va">stats</span><span class="op">)</span></span>
+<span><span class="va">airway</span></span>
+<span><span class="co">#&gt; class: RangedSummarizedExperiment </span></span>
+<span><span class="co">#&gt; dim: 63677 8 </span></span>
+<span><span class="co">#&gt; metadata(2): '' iSEEpathways</span></span>
+<span><span class="co">#&gt; assays(1): counts</span></span>
+<span><span class="co">#&gt; rownames(63677): TSPAN6 TNMD ... APP-DT ENSG00000273493</span></span>
+<span><span class="co">#&gt; rowData names(14): gene_id gene_name ... uniquifyFeatureNames iSEEde</span></span>
+<span><span class="co">#&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521</span></span>
+<span><span class="co">#&gt; colData names(9): SampleName cell ... Sample BioSample</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="mapping-pathways-to-genes">Mapping pathways to genes<a class="anchor" aria-label="anchor" href="#mapping-pathways-to-genes"></a>
+</h4>
+<p>Separately, it is necessary to define and register a function that
+fetches the gene identifiers associated with a given pathway identifier.
+This function is required to transmit selections from pathway-level
+panels to feature-level panels.</p>
+<p>Due to the use of <code><a href="https://rdrr.io/pkg/scuttle/man/uniquifyFeatureNames.html" class="external-link">uniquifyFeatureNames()</a></code> above, the
+function must first map to the unique Ensembl gene identifier, to
+accurately identify the corresponding value in
+<code>rownames(airway)</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">map_GO</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pathway_id</span>, <span class="va">se</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">pathway_ensembl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">mapIds</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="va">pathway_id</span>, <span class="st">"ENSEMBL"</span>, keytype <span class="op">=</span> <span class="st">"GOALL"</span>, multiVals <span class="op">=</span> <span class="st">"CharacterList"</span><span class="op">)</span><span class="op">[[</span><span class="va">pathway_id</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">pathway_rownames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">[[</span><span class="st">"gene_id"</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">pathway_ensembl</span><span class="op">]</span></span>
+<span>    <span class="va">pathway_rownames</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/registerAppOptions.html" class="external-link">registerAppOptions</a></span><span class="op">(</span><span class="va">airway</span>, Pathways.map.functions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>GO <span class="op">=</span> <span class="va">map_GO</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="add-normalised-gene-expression">Add normalised gene expression<a class="anchor" aria-label="anchor" href="#add-normalised-gene-expression"></a>
+</h4>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"scuttle"</span><span class="op">)</span></span>
+<span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html" class="external-link">logNormCounts</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="live-app">Live app<a class="anchor" aria-label="anchor" href="#live-app"></a>
+</h3>
+<p>Finally, we can preconfigure the initial state of an app that
+immediately links panels to one another.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">airway</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEEpathways/man/PathwaysTable-class.html" class="external-link">PathwaysTable</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEEde/man/VolcanoPlot-class.html" class="external-link">VolcanoPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">4L</span>,</span>
+<span>    RowSelectionSource <span class="op">=</span> <span class="st">"PathwaysTable1"</span>, ColorBy <span class="op">=</span> <span class="st">"Row selection"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ComplexHeatmapPlot-class.html" class="external-link">ComplexHeatmapPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">4L</span>,</span>
+<span>    RowSelectionSource <span class="op">=</span> <span class="st">"PathwaysTable1"</span>,</span>
+<span>    CustomRows <span class="op">=</span> <span class="cn">FALSE</span>, ColumnData <span class="op">=</span> <span class="st">"dex"</span>,</span>
+<span>    ClusterRows <span class="op">=</span> <span class="cn">TRUE</span>, ClusterRowsDistance <span class="op">=</span> <span class="st">"euclidean"</span>, AssayCenterRows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEEpathways/man/FgseaEnrichmentPlot-class.html" class="external-link">FgseaEnrichmentPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">12L</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Plan:</p>
 <ul>
 <li>Run code from the iSEEpathways vignette <a href="https://isee.github.io/iSEEpathways/articles/integration.html" class="external-link uri">https://isee.github.io/iSEEpathways/articles/integration.html</a>
