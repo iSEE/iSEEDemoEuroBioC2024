@@ -212,6 +212,7 @@ To simulate a short analytical workflow, let us run some more code from the `?iS
 
 ```{r, message=FALSE, warning=FALSE}
 library(scater)
+library(scuttle)
 sce <- logNormCounts(sce, exprs_values="tophat_counts")
 
 sce <- runPCA(sce, ncomponents=4)

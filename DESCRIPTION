@@ -42,13 +42,16 @@ Imports:
 Suggests:
     airway,
     BiocStyle,
+    DESeq2,
     fgsea,
     knitr,
     org.Hs.eg.db,
     pkgdown,
     rmarkdown,
     scRNAseq,
-    scater
+    scater,
+    scuttle,
+    sessioninfo
 URL: https://isee.github.io/iSEEDemoEuroBioC2024/
 BugReports: https://github.com/iSEE/iSEEDemoEuroBioC2024/issues/new/choose
 VignetteBuilder: knitr
