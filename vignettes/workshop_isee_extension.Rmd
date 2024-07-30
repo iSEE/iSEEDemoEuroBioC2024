@@ -556,7 +556,7 @@ We set the default resolution to 100 hexagonal bins along each axis.
 setMethod("initialize", "ReducedDimensionHexPlot", function(.Object, ...) {
     args <- list(...)
 
-    args <- .emptyDefault(args, .plotBinResolution, 100)
+    args <- .emptyDefault(args, "BinResolution", 100)
 
     do.call(callNextMethod, c(list(.Object), args))
 })
@@ -580,8 +580,8 @@ At this point, we can already demonstrate that we have a functional new panel cl
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 iSEE(sce, initial = list(
-  ReducedDimensionHexPlot(),
-  ReducedDimensionPlot()
+  ReducedDimensionHexPlot(PanelWidth = 6L),
+  ReducedDimensionPlot(PanelWidth = 6L)
 ))
 ```
 
@@ -632,6 +632,37 @@ iSEE(sce, initial = list(
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the background colour of the child panel.](img/iSEEhex_color.png)
+
+<br/>
+
+At this point, there is still no component in the user interface to control the resolution value store in the new slot.
+
+A number of S4 methods control the interface elements displayed in the variousgroups of parameters located under each panel.
+
+Here, we are discussing a parameter that will control the *size* of bins.
+Moreover, we are about to replace data points by hexagonal bins, meaning that the visual parameters controlling the size of data points are about to become useless.
+
+Thus, the generic `.defineVisualSizeInterface()` is the natural choice to use for replacing the size parameters of the parent `ReducedDimensionHexPlot()` class by a new HTML element that displays a numeric input allowing users to change the hexagonal bin resolution.
+
+```{r}
+setMethod(".defineVisualSizeInterface", "ReducedDimensionHexPlot", function(x) {
+    plot_name <- .getEncodedName(x)
+
+    tagList(
+        .numericInput.iSEE(x, "BinResolution", label="Bin resolution:",
+            min=1, value=x[["BinResolution"]], step = 1)
+    )
+})
+```
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+iSEE(sce, initial = list(
+  ReducedDimensionHexPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size"),
+  ReducedDimensionPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size")
+))
+```
+
+![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the size parameter interface in the child panel.](img/iSEEhex_input.png)
 
 <br/>
 
