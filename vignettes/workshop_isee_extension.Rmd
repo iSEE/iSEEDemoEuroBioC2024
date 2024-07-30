@@ -156,7 +156,8 @@ Let's demonstrate this by attaching the `r BiocStyle::Biocpkg("iSEE")` package t
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 library(iSEE)
-iSEE(sce)
+app <- iSEE(sce)
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app.](img/iSEE_default.png)
@@ -227,7 +228,8 @@ Then, as pointed out earlier, you are free to launch another `r BiocStyle::Biocp
 The `iSEE()` function automatically detects new assay data and metadata in the updated object, populating the application components with all the available information, old and new.
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-iSEE(sce)
+app <- iSEE(sce)
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app.](img/iSEE_default_2.png)
@@ -316,7 +318,8 @@ All we need to do is:
 * Pass this `initial` object to the `initial=` argument of the `iSEE()` function, to launch a new app in the desired initial state
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-iSEE(sce, initial = initial)
+app <- iSEE(sce, initial = initial)
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app launched in a predefined initial configuration.](img/iSEE_initial.png)
@@ -499,7 +502,7 @@ airway <- logNormCounts(airway)
 Finally, we can preconfigure the initial state of an app that immediately links panels to one another.
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-iSEE(airway, initial = list(
+app <- iSEE(airway, initial = list(
   PathwaysTable(PanelWidth = 4L),
   VolcanoPlot(PanelWidth = 4L,
     RowSelectionSource = "PathwaysTable1", ColorBy = "Row selection"),
@@ -509,6 +512,7 @@ iSEE(airway, initial = list(
     ClusterRows = TRUE, ClusterRowsDistance = "euclidean", AssayCenterRows = TRUE),
   FgseaEnrichmentPlot(PanelWidth = 12L)
 ))
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app including extension panels and launched in a predefined initial configuration.](img/iSEEpathways_integration.png)
@@ -585,10 +589,11 @@ ReducedDimensionHexPlot <- function(...) {
 At this point, we can already demonstrate that we have a functional new panel class... that is a carbon copy of the parent class it inherits from!
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-iSEE(sce, initial = list(
+app <- iSEE(sce, initial = list(
   ReducedDimensionHexPlot(PanelWidth = 6L),
   ReducedDimensionPlot(PanelWidth = 6L)
 ))
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension.](img/iSEEhex_clone.png)
@@ -610,10 +615,11 @@ setMethod(".fullName", "ReducedDimensionHexPlot", function(x) "Hexagonal reduced
 Let's launch the app to see the effect
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-iSEE(sce, initial = list(
+app <- iSEE(sce, initial = list(
   ReducedDimensionHexPlot(PanelWidth = 6L),
   ReducedDimensionPlot(PanelWidth = 6L)
 ))
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the full name of the child panel.](img/iSEEhex_fullName.png)
@@ -633,10 +639,11 @@ setMethod(".panelColor", "ReducedDimensionHexPlot", function(x) "#991717")
 Let's launch the app to see the effect
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-iSEE(sce, initial = list(
+app <- iSEE(sce, initial = list(
   ReducedDimensionHexPlot(PanelWidth = 6L),
   ReducedDimensionPlot(PanelWidth = 6L)
 ))
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the background colour of the child panel.](img/iSEEhex_color.png)
@@ -666,10 +673,11 @@ setMethod(".defineVisualSizeInterface", "ReducedDimensionHexPlot", function(x) {
 ```
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-iSEE(sce, initial = list(
+app <- iSEE(sce, initial = list(
   ReducedDimensionHexPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size"),
   ReducedDimensionPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size")
 ))
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the size parameter interface in the child panel.](img/iSEEhex_input.png)
@@ -701,10 +709,11 @@ setMethod(".generateDotPlot", "ReducedDimensionHexPlot", function(x, labels, env
 ```
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-iSEE(sce, initial = list(
+app <- iSEE(sce, initial = list(
   ReducedDimensionHexPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size"),
   ReducedDimensionPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size")
 ))
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the internal plotting code in the child panel.](img/iSEEhex_binned.png)
@@ -739,10 +748,11 @@ setMethod(".createObservers", "ReducedDimensionHexPlot", function(x, se, input, 
 With the new observer in place, we can launch the app one more time, to toy with the bin resolution and watch the panel plot being re-rendered each time.
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-iSEE(sce, initial = list(
+app <- iSEE(sce, initial = list(
   ReducedDimensionHexPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size"),
   ReducedDimensionPlot(PanelWidth = 6L)
 ))
+runApp(app, launch.browser = TRUE)
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after adding an observer in the child panel and using the value of the new interface element.](img/iSEE_observer.png)
