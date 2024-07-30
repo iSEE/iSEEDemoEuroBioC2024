@@ -154,7 +154,7 @@ From the moment raw data or metadata are encapsulated in a `r BiocStyle::Biocpkg
 
 Let's demonstrate this by attaching the `r BiocStyle::Biocpkg("iSEE")` package to the R session and calling the `iSEE()` function to launch an app in the default settings.
 
-```{r, message=FALSE, warning=FALSE, eval=interactive()}
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
 library(iSEE)
 iSEE(sce)
 ```
@@ -225,7 +225,7 @@ Then, as pointed out earlier, you are free to launch another `r BiocStyle::Biocp
 
 The `iSEE()` function automatically detects new assay data and metadata in the updated object, populating the application components with all the available information, old and new.
 
-```{r, message=FALSE, warning=FALSE, eval=interactive()}
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
 iSEE(sce)
 ```
 
@@ -314,7 +314,7 @@ All we need to do is:
 * Run that R script, to create the `initial` object that represents the initial state of the app
 * Pass this `initial` object to the `initial=` argument of the `iSEE()` function, to launch a new app in the desired initial state
 
-```{r, message=FALSE, warning=FALSE, eval=interactive()}
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
 iSEE(sce, initial = initial)
 ```
 
@@ -497,7 +497,7 @@ airway <- logNormCounts(airway)
 
 Finally, we can preconfigure the initial state of an app that immediately links panels to one another.
 
-```{r, message=FALSE, warning=FALSE, eval=interactive()}
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
 iSEE(airway, initial = list(
   PathwaysTable(PanelWidth = 4L),
   VolcanoPlot(PanelWidth = 4L,
@@ -561,14 +561,35 @@ ReducedDimensionHexPlot <- function(...) {
 
 At this point, we can already demonstrate that we have a functional new panel class... that is a carbon copy of the parent class it inherits from!
 
-```{r, message=FALSE, warning=FALSE, eval=interactive()}
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
 iSEE(sce, initial = list(
   ReducedDimensionHexPlot(),
   ReducedDimensionPlot()
 ))
 ```
 
+![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension.](img/iSEEhex_clone.png)
+
 How can we even tell which is which?!
+
+The generic `.fullName()` declares the label shown in the interface, at the top of each panel.
+
+Let us create a method for the new class, that gives it a different name, highlighting the hexagonal binning in the plot.
+
+```{r}
+setMethod(".fullName", "ReducedDimensionHexPlot", function(x) "Hexagonal reduced dimension plot")
+```
+
+Let's launch the app to see the effect
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+iSEE(sce, initial = list(
+  ReducedDimensionHexPlot(PanelWidth = 6L),
+  ReducedDimensionPlot(PanelWidth = 6L)
+))
+```
+
+![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the full name of the child panel.](img/iSEEhex_fullName.png)
 
 ## Session info
 
