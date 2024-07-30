@@ -388,6 +388,7 @@ from the <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://bioconductor.org/packages/scater/" class="external-link">scater</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scuttle</span><span class="op">)</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html" class="external-link">logNormCounts</a></span><span class="op">(</span><span class="va">sce</span>, exprs_values<span class="op">=</span><span class="st">"tophat_counts"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocSingular/man/runPCA.html" class="external-link">runPCA</a></span><span class="op">(</span><span class="va">sce</span>, ncomponents<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
@@ -520,8 +521,8 @@ For instance, the same initial state illustrated above can be achieved
 using the following script:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">initial</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/FeatureAssayPlot-class.html" class="external-link">FeatureAssayPlot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/FeatureAssayPlot-class.html" class="external-link">FeatureAssayPlot</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg>
 Note that any setting not specified in the R script will be set to a
@@ -779,9 +780,9 @@ accurately identify the corresponding value in
 <code>rownames(airway)</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">map_GO</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pathway_id</span>, <span class="va">se</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">pathway_ensembl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">mapIds</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="va">pathway_id</span>, <span class="st">"ENSEMBL"</span>, keytype <span class="op">=</span> <span class="st">"GOALL"</span>, multiVals <span class="op">=</span> <span class="st">"CharacterList"</span><span class="op">)</span><span class="op">[[</span><span class="va">pathway_id</span><span class="op">]</span><span class="op">]</span></span>
-<span>    <span class="va">pathway_rownames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">[[</span><span class="st">"gene_id"</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">pathway_ensembl</span><span class="op">]</span></span>
-<span>    <span class="va">pathway_rownames</span></span>
+<span>  <span class="va">pathway_ensembl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">mapIds</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="va">pathway_id</span>, <span class="st">"ENSEMBL"</span>, keytype <span class="op">=</span> <span class="st">"GOALL"</span>, multiVals <span class="op">=</span> <span class="st">"CharacterList"</span><span class="op">)</span><span class="op">[[</span><span class="va">pathway_id</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">pathway_rownames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span><span class="op">[[</span><span class="st">"gene_id"</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">pathway_ensembl</span><span class="op">]</span></span>
+<span>  <span class="va">pathway_rownames</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/registerAppOptions.html" class="external-link">registerAppOptions</a></span><span class="op">(</span><span class="va">airway</span>, Pathways.map.functions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>GO <span class="op">=</span> <span class="va">map_GO</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -862,10 +863,35 @@ package).</p>
 <p>The objective is to produce a panel that displays the same
 information as the original <code><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot()</a></code> panel,
 but summarising data points into hexagonal bins.</p>
-<p>For this, the new class needs an additional slot to store the number
-of hexagonal bins to create (i.e., a resolution for the plot).</p>
+<p>One major motivation for this functionality is that arbitrarily large
+data sets comprising many data points may be summarised into a modest
+number of hexagonal bins, providing a boost in speed when rendering the
+plot.</p>
+<p>However, this is not without caveats:</p>
+<ul>
+<li>Summarising can take many forms (e.g., counting, averaging).</li>
+<li>The ideal number of bins may be different for different data
+sets.</li>
+</ul>
+<p>To proceed, the new class needs at least one additional slot to store
+the number of hexagonal bins to create (i.e., a resolution for the
+plot).</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setClass.html" class="external-link">setClass</a></span><span class="op">(</span><span class="st">"ReducedDimensionHexPlot"</span>, contains<span class="op">=</span><span class="st">"ReducedDimensionPlot"</span>, slots<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>BinResolution <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>To properly initialise instances of the new class, the new slot must
+be populated with a default value in the event that users do not specify
+a bin resolution.</p>
+<p>For this, we need to create a new method for the generic
+<code><a href="https://rdrr.io/r/methods/new.html" class="external-link">initialize()</a></code> and the new class. We set the default
+resolution to 100 hexagonal bins along each axis.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html" class="external-link">setMethod</a></span><span class="op">(</span><span class="st">"initialize"</span>, <span class="st">"ReducedDimensionHexPlot"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">.Object</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/class-utils.html" class="external-link">.emptyDefault</a></span><span class="op">(</span><span class="va">args</span>, <span class="st">"BinResolution"</span>, <span class="fl">20</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">callNextMethod</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">.Object</span><span class="op">)</span>, <span class="va">args</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="creating-a-constructor-function">Creating a constructor function<a class="anchor" aria-label="anchor" href="#creating-a-constructor-function"></a>
@@ -877,21 +903,407 @@ the class.</p>
 <code><a href="https://rdrr.io/r/methods/new.html" class="external-link">new()</a></code> function. This is standard practice in <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>, where
 the arguments for constructor functions are typically the values of the
 various slots that describe the initial state of the panel.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ReducedDimensionHexPlot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/methods/new.html" class="external-link">new</a></span><span class="op">(</span><span class="st">"ReducedDimensionHexPlot"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/methods/new.html" class="external-link">new</a></span><span class="op">(</span><span class="st">"ReducedDimensionHexPlot"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>At this point, we can already demonstrate that we have a functional
 new panel class… that is a carbon copy of the parent class it inherits
 from!</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+<div class="float">
+<img src="img/iSEEhex_clone.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension."><div class="figcaption">Screenshot of iSEE app including a parent
+ReducedDimensionPlot and a ReducedDimensionHexPlot extension.</div>
+</div>
+<p><br></p>
 <p>How can we even tell which is which?!</p>
 </div>
+<div class="section level3">
+<h3 id="changing-the-public-panel-name">Changing the public panel name<a class="anchor" aria-label="anchor" href="#changing-the-public-panel-name"></a>
+</h3>
+<p>The generic <code><a href="https://rdrr.io/pkg/iSEE/man/getEncodedName.html" class="external-link">.fullName()</a></code> declares the label shown in the
+interface, at the top of each panel.</p>
+<p>Let us create a method for the new class, that gives it a different
+name, highlighting the hexagonal binning in the plot.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html" class="external-link">setMethod</a></span><span class="op">(</span><span class="st">".fullName"</span>, <span class="st">"ReducedDimensionHexPlot"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="st">"Hexagonal reduced dimension plot"</span><span class="op">)</span></span></code></pre></div>
+<p>Let’s launch the app to see the effect</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/iSEEhex_fullName.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the full name of the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
+ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
+changing the full name of the child panel.</div>
+</div>
+<p><br></p>
+</div>
+<div class="section level3">
+<h3 id="changing-the-background-panel-colour">Changing the background panel colour<a class="anchor" aria-label="anchor" href="#changing-the-background-panel-colour"></a>
+</h3>
+<p>Similarly, the generic <code><a href="https://rdrr.io/pkg/iSEE/man/getPanelColor.html" class="external-link">.panelColor()</a></code> declares the
+background colour of the panel header (as well as the colour of brushes
+for compatible panels).</p>
+<p>Let us create a method for the new class, that gives it a different
+colour.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html" class="external-link">setMethod</a></span><span class="op">(</span><span class="st">".panelColor"</span>, <span class="st">"ReducedDimensionHexPlot"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="st">"#991717"</span><span class="op">)</span></span></code></pre></div>
+<p>Let’s launch the app to see the effect</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/iSEEhex_color.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the background colour of the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
+ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
+changing the background colour of the child panel.</div>
+</div>
+<p><br></p>
+</div>
+<div class="section level3">
+<h3 id="altering-the-user-interface">Altering the user interface<a class="anchor" aria-label="anchor" href="#altering-the-user-interface"></a>
+</h3>
+<p>At this point, there is still no component in the user interface to
+control the resolution value store in the new slot.</p>
+<p>A number of S4 methods control the interface elements displayed in
+the various groups of parameters located under each panel.</p>
+<p>Here, we are discussing a parameter that will control the
+<em>size</em> of bins. Moreover, we are about to replace data points by
+hexagonal bins, meaning that the visual parameters controlling the size
+of data points are about to become useless.</p>
+<p>Thus, the generic <code><a href="https://rdrr.io/pkg/iSEE/man/visual-parameters-generics.html" class="external-link">.defineVisualSizeInterface()</a></code> is the
+natural choice to use for replacing the size parameters of the parent
+<code>ReducedDimensionHexPlot()</code> class by a new HTML element that
+displays a numeric input allowing users to change the hexagonal bin
+resolution.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html" class="external-link">setMethod</a></span><span class="op">(</span><span class="st">".defineVisualSizeInterface"</span>, <span class="st">"ReducedDimensionHexPlot"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">plot_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/getEncodedName.html" class="external-link">.getEncodedName</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu">tagList</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/interface-wrappers.html" class="external-link">.numericInput.iSEE</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"BinResolution"</span>, label<span class="op">=</span><span class="st">"Bin resolution:"</span>,</span>
+<span>                       min<span class="op">=</span><span class="fl">1</span>, value<span class="op">=</span><span class="va">x</span><span class="op">[[</span><span class="st">"BinResolution"</span><span class="op">]</span><span class="op">]</span>, step <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/iSEEhex_input.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the size parameter interface in the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
+ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
+replacing the size parameter interface in the child panel.</div>
+</div>
+<p><br></p>
+</div>
+<div class="section level3">
+<h3 id="altering-the-panel-output">Altering the panel output<a class="anchor" aria-label="anchor" href="#altering-the-panel-output"></a>
+</h3>
+<p>Time for the most exciting and challenging task: making the panel
+produce a different type of plot!</p>
+<p>To this end, the generic <code><a href="https://rdrr.io/pkg/iSEE/man/plot-generics.html" class="external-link">.generateDotPlot()</a></code> is key.
+Given a panel state, axis labels, and an environment that contains the
+<code><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">SummarizedExperiment()</a></code> object and possibly other relevant
+values such as incoming selections,</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html" class="external-link">setMethod</a></span><span class="op">(</span><span class="st">".generateDotPlot"</span>, <span class="st">"ReducedDimensionHexPlot"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">labels</span>, <span class="va">envir</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">plot_cmds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">plot_cmds</span><span class="op">[[</span><span class="st">"ggplot"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"ggplot() +"</span></span>
+<span>  <span class="va">color_lab</span> <span class="op">&lt;-</span> <span class="st">"Count"</span></span>
+<span>  <span class="va">new_aes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/aes-utils.html" class="external-link">.buildAes</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">plot_cmds</span><span class="op">[[</span><span class="st">"hex"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
+<span>    <span class="st">"ggplot2::geom_hex(%s, bins = %i, plot.data) +"</span>,</span>
+<span>    <span class="va">new_aes</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="st">"BinResolution"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="va">plot_cmds</span><span class="op">[[</span><span class="st">"theme_base"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"theme_bw()"</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>plot<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/manage_commands.html" class="external-link">.textEval</a></span><span class="op">(</span><span class="va">plot_cmds</span>, <span class="va">envir</span><span class="op">)</span>, commands<span class="op">=</span><span class="va">plot_cmds</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/iSEEhex_binned.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the internal plotting code in the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
+ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
+replacing the internal plotting code in the child panel.</div>
+</div>
+<p><br></p>
+<p>Now, there are many more aspects of the plotting behaviour that we
+should test and adjust, making sure that all the choices of parameters
+presented to end users are sensible, and that all combinations of
+parameters are handled without error.</p>
+<p>However, that work represents many hours of careful testing and
+implementation that is far beyond the scope of this short package
+demo.</p>
+<p>Adventurous souls may be interested in a more mature implementation
+of the <code>ReducedDimensionHexPlot()</code> panel class, implemented
+in the <em><a href="https://bioconductor.org/packages/3.20/iSEEhex" class="external-link">iSEEhex</a></em>
+package. Source code can be found on GitHub on <a href="https://github.com/iSEE/iSEEhex/blob/main/R/ReducedDimensionHexPlot.R" class="external-link">this
+page</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="adding-reactivity">Adding reactivity<a class="anchor" aria-label="anchor" href="#adding-reactivity"></a>
+</h3>
+<p>At this point, if users change the bin resolution using the newly
+added interface element, they will notice that nothing seems to
+happen.</p>
+<p>That is because we have not yet added a Shiny observer responding to
+this particular event.</p>
+<p>The <code><a href="https://rdrr.io/pkg/iSEE/man/observer-generics.html" class="external-link">.createObservers()</a></code> generic is invoked to create
+observers for all the instances of each panel class added to the user
+interface.</p>
+<p>The <code><a href="https://rdrr.io/pkg/iSEE/man/createProtectedParameterObservers.html" class="external-link">.createProtectedParameterObservers()</a></code> function
+provides a convenient way to create observers responding to events that
+change the data being plotted and potentially break active multiple
+seletions, if any. This function automatically ensures that any change
+of value in the interface element is updated in the panel state and
+triggers re-rendering of the panel plot.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html" class="external-link">setMethod</a></span><span class="op">(</span><span class="st">".createObservers"</span>, <span class="st">"ReducedDimensionHexPlot"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">se</span>, <span class="va">input</span>, <span class="va">session</span>, <span class="va">pObjects</span>, <span class="va">rObjects</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/methods/NextMethod.html" class="external-link">callNextMethod</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">plot_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/getEncodedName.html" class="external-link">.getEncodedName</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/createProtectedParameterObservers.html" class="external-link">.createProtectedParameterObservers</a></span><span class="op">(</span><span class="va">plot_name</span>,</span>
+<span>        fields<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BinResolution"</span><span class="op">)</span>,</span>
+<span>        input<span class="op">=</span><span class="va">input</span>, pObjects<span class="op">=</span><span class="va">pObjects</span>, rObjects<span class="op">=</span><span class="va">rObjects</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>With the new observer in place, we can launch the app one more time,
+to toy with the bin resolution and watch the panel plot being
+re-rendered each time.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="img/iSEE_observer.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after adding an observer in the child panel and using the value of the new interface element."><div class="figcaption">Screenshot of iSEE app including a parent
+ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
+adding an observer in the child panel and using the value of the new
+interface element.</div>
+</div>
+<p><br></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
+</h2>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
+<span><span class="co">#&gt;  version  R version 4.4.1 (2024-06-14)</span></span>
+<span><span class="co">#&gt;  os       Ubuntu 22.04.4 LTS</span></span>
+<span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
+<span><span class="co">#&gt;  ui       X11</span></span>
+<span><span class="co">#&gt;  language en</span></span>
+<span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
+<span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
+<span><span class="co">#&gt;  tz       Etc/UTC</span></span>
+<span><span class="co">#&gt;  date     2024-07-30</span></span>
+<span><span class="co">#&gt;  pandoc   3.2 @ /usr/bin/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package             </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version  </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
+<span><span class="co">#&gt;  abind                  1.4-5     <span style="color: #555555;">2016-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  airway               * 1.25.0    <span style="color: #555555;">2024-05-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  alabaster.base         1.5.3     <span style="color: #555555;">2024-06-23</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  alabaster.matrix       1.5.5     <span style="color: #555555;">2024-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  alabaster.ranges       1.5.2     <span style="color: #555555;">2024-06-23</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  alabaster.sce          1.5.1     <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  alabaster.schemas      1.5.0     <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  alabaster.se           1.5.3     <span style="color: #555555;">2024-07-05</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  AnnotationDbi        * 1.67.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  AnnotationFilter       1.29.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  AnnotationHub          3.13.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  beachmat               2.21.5    <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  beeswarm               0.4.0     <span style="color: #555555;">2021-06-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Biobase              * 2.65.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocFileCache          2.13.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocGenerics         * 0.51.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocIO                 1.15.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocManager            1.30.23   <span style="color: #555555;">2024-05-04</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  BiocNeighbors          1.23.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocParallel           1.39.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocSingular           1.21.2    <span style="color: #555555;">2024-07-04</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  BiocStyle              2.33.1    <span style="color: #555555;">2024-06-12</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocVersion            3.20.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  Biostrings             2.73.1    <span style="color: #555555;">2024-06-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bit                    4.0.5     <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bit64                  4.0.5     <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bitops                 1.0-7     <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  blob                   1.2.4     <span style="color: #555555;">2023-03-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bslib                  0.7.0     <span style="color: #555555;">2024-03-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  cachem                 1.1.0     <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  circlize               0.4.16    <span style="color: #555555;">2024-02-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  cli                    3.6.3     <span style="color: #555555;">2024-06-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  clue                   0.3-65    <span style="color: #555555;">2023-09-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  cluster                2.1.6     <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  codetools              0.2-20    <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  colorspace             2.1-1     <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  colourpicker           1.3.0     <span style="color: #555555;">2023-08-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ComplexHeatmap         2.21.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  cowplot                1.1.3     <span style="color: #555555;">2024-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  crayon                 1.5.3     <span style="color: #555555;">2024-06-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  curl                   5.2.1     <span style="color: #555555;">2024-03-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  data.table             1.15.4    <span style="color: #555555;">2024-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  DBI                    1.2.3     <span style="color: #555555;">2024-06-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  dbplyr                 2.5.0     <span style="color: #555555;">2024-03-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  DelayedArray           0.31.10   <span style="color: #555555;">2024-07-28</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  desc                   1.4.3     <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  DESeq2               * 1.45.3    <span style="color: #555555;">2024-07-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  digest                 0.6.36    <span style="color: #555555;">2024-06-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  doParallel             1.0.17    <span style="color: #555555;">2022-02-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  dplyr                  1.1.4     <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  DT                     0.33      <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  edgeR                  4.3.5     <span style="color: #555555;">2024-07-14</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  ensembldb              2.29.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  evaluate               0.24.0    <span style="color: #555555;">2024-06-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ExperimentHub          2.13.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fansi                  1.0.6     <span style="color: #555555;">2023-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fastmap                1.2.0     <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fastmatch              1.1-4     <span style="color: #555555;">2023-08-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fgsea                * 1.31.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  filelock               1.0.3     <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fontawesome            0.5.2     <span style="color: #555555;">2023-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  foreach                1.5.2     <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fs                     1.6.4     <span style="color: #555555;">2024-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  generics               0.1.3     <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDb         * 1.41.1    <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDbData       1.2.12    <span style="color: #555555;">2024-06-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomicAlignments      1.41.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  GenomicFeatures        1.57.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  GenomicRanges        * 1.57.1    <span style="color: #555555;">2024-06-12</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  GetoptLong             1.0.5     <span style="color: #555555;">2020-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ggbeeswarm             0.7.2     <span style="color: #555555;">2023-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ggplot2              * 3.5.1     <span style="color: #555555;">2024-04-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ggrepel                0.9.5     <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  GlobalOptions          0.1.2     <span style="color: #555555;">2020-06-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  glue                   1.7.0     <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  gridExtra              2.3       <span style="color: #555555;">2017-09-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  gtable                 0.3.5     <span style="color: #555555;">2024-04-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  gypsum                 1.1.6     <span style="color: #555555;">2024-06-23</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  HDF5Array              1.33.5    <span style="color: #555555;">2024-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  htmltools              0.5.8.1   <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  htmlwidgets            1.6.4     <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  httpuv                 1.6.15    <span style="color: #555555;">2024-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  httr                   1.4.7     <span style="color: #555555;">2023-08-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  httr2                  1.0.2     <span style="color: #555555;">2024-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  igraph                 2.0.3     <span style="color: #555555;">2024-03-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  IRanges              * 2.39.2    <span style="color: #555555;">2024-07-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  irlba                  2.3.5.1   <span style="color: #555555;">2022-10-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  iSEE                 * 2.17.3    <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  iSEEde               * 1.3.0     <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  iSEEpathways         * 1.3.0     <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  iterators              1.0.14    <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  jquerylib              0.1.4     <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  jsonlite               1.8.8     <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  KEGGREST               1.45.1    <span style="color: #555555;">2024-06-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  knitr                  1.48      <span style="color: #555555;">2024-07-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  later                  1.3.2     <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  lattice                0.22-6    <span style="color: #555555;">2024-03-20</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  lazyeval               0.2.2     <span style="color: #555555;">2019-03-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  lifecycle              1.0.4     <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  limma                  3.61.5    <span style="color: #555555;">2024-07-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  listviewer             4.0.0     <span style="color: #555555;">2023-09-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  locfit                 1.5-9.10  <span style="color: #555555;">2024-06-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  magrittr               2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Matrix                 1.7-0     <span style="color: #555555;">2024-04-26</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  MatrixGenerics       * 1.17.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  matrixStats          * 1.3.0     <span style="color: #555555;">2024-04-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  memoise                2.0.1     <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  mgcv                   1.9-1     <span style="color: #555555;">2023-12-21</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  mime                   0.12      <span style="color: #555555;">2021-09-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  miniUI                 0.1.1.1   <span style="color: #555555;">2018-05-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  munsell                0.5.1     <span style="color: #555555;">2024-04-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  nlme                   3.1-165   <span style="color: #555555;">2024-06-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  org.Hs.eg.db         * 3.19.1    <span style="color: #555555;">2024-06-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  pillar                 1.9.0     <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  pkgconfig              2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  pkgdown                2.1.0     <span style="color: #555555;">2024-07-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  png                    0.1-8     <span style="color: #555555;">2022-11-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  promises               1.3.0     <span style="color: #555555;">2024-04-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ProtGenerics           1.37.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  R6                     2.5.1     <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ragg                   1.3.2     <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rappdirs               0.3.3     <span style="color: #555555;">2021-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  RColorBrewer           1.1-3     <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Rcpp                   1.0.13    <span style="color: #555555;">2024-07-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  RCurl                  1.98-1.16 <span style="color: #555555;">2024-07-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  restfulr               0.0.15    <span style="color: #555555;">2022-06-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rhdf5                  2.49.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rhdf5filters           1.17.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Rhdf5lib               1.27.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rintrojs               0.3.4     <span style="color: #555555;">2024-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rjson                  0.2.21    <span style="color: #555555;">2022-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rlang                  1.1.4     <span style="color: #555555;">2024-06-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rmarkdown              2.27      <span style="color: #555555;">2024-05-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Rsamtools              2.21.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  RSQLite                2.3.7     <span style="color: #555555;">2024-05-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rsvd                   1.0.5     <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rtracklayer            1.65.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Rtsne                  0.17      <span style="color: #555555;">2023-12-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  S4Arrays               1.5.5     <span style="color: #555555;">2024-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  S4Vectors            * 0.43.2    <span style="color: #555555;">2024-07-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  sass                   0.4.9     <span style="color: #555555;">2024-03-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ScaledMatrix           1.13.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  scales                 1.3.0     <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  scater               * 1.33.4    <span style="color: #555555;">2024-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  scRNAseq             * 2.19.1    <span style="color: #555555;">2024-06-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  scuttle              * 1.15.2    <span style="color: #555555;">2024-07-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  sessioninfo            1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shape                  1.4.6.1   <span style="color: #555555;">2024-02-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shiny                  1.8.1.1   <span style="color: #555555;">2024-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shinyAce               0.4.2     <span style="color: #555555;">2022-05-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shinydashboard         0.7.2     <span style="color: #555555;">2021-09-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shinyjs                2.1.0     <span style="color: #555555;">2021-12-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shinyWidgets           0.8.6     <span style="color: #555555;">2024-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  SingleCellExperiment * 1.27.2    <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  SparseArray            1.5.26    <span style="color: #555555;">2024-07-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  statmod                1.5.0     <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  SummarizedExperiment * 1.35.1    <span style="color: #555555;">2024-06-28</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  systemfonts            1.1.0     <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  textshaping            0.4.0     <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  tibble                 3.2.1     <span style="color: #555555;">2023-03-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  tidyselect             1.2.1     <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  UCSC.utils             1.1.0     <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  utf8                   1.2.4     <span style="color: #555555;">2023-10-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  vctrs                  0.6.5     <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  vipor                  0.4.7     <span style="color: #555555;">2023-12-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  viridis                0.6.5     <span style="color: #555555;">2024-01-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  viridisLite            0.4.2     <span style="color: #555555;">2023-05-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  withr                  3.0.0     <span style="color: #555555;">2024-01-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  xfun                   0.46      <span style="color: #555555;">2024-07-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  XML                    3.99-0.17 <span style="color: #555555;">2024-06-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  xtable                 1.8-4     <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  XVector                0.45.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  yaml                   2.3.10    <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  zlibbioc               1.51.1    <span style="color: #555555;">2024-06-05</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpVApLht/temp_libpath54716c0dc75</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [3] /usr/local/lib/R/library</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────</span></span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="timings">Timings<a class="anchor" aria-label="anchor" href="#timings"></a>
+</h2>
+<p>Wallclock time spent generating the vignette.</p>
+<pre><code><span><span class="co">#&gt; Time difference of 1.286 mins</span></span></code></pre>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr>
