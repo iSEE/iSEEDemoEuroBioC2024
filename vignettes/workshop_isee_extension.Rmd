@@ -10,10 +10,14 @@ vignette: >
 
 
 ```{r, include = FALSE}
+## Track time spent on making the vignette
+startTime <- Sys.time()
+## knitr options
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+## Load now to avoid startup messages later
 library(iSEE)
 ```
 
@@ -567,3 +571,19 @@ iSEE(sce, initial = list(
 ```
 
 How can we even tell which is which?!
+
+## Session info
+
+```{r}
+sessioninfo::session_info()
+```
+
+## Timings
+
+Wallclock time spent generating the vignette.
+
+```{r reproduce2, echo=FALSE}
+## Processing time in seconds
+totalTime <- diff(c(startTime, Sys.time()))
+round(totalTime, digits = 3)
+```
