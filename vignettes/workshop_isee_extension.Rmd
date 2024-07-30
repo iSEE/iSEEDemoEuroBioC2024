@@ -646,7 +646,7 @@ iSEE(sce, initial = list(
 
 At this point, there is still no component in the user interface to control the resolution value store in the new slot.
 
-A number of S4 methods control the interface elements displayed in the variousgroups of parameters located under each panel.
+A number of S4 methods control the interface elements displayed in the various groups of parameters located under each panel.
 
 Here, we are discussing a parameter that will control the *size* of bins.
 Moreover, we are about to replace data points by hexagonal bins, meaning that the visual parameters controlling the size of data points are about to become useless.
@@ -707,6 +707,19 @@ iSEE(sce, initial = list(
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the internal plotting code in the child panel.](img/iSEEhex_binned.png)
+
+Now, there are many more aspects of the plotting behaviour that we should test and adjust, making sure that all the choices of parameters presented to end users are sensible, and that all combinations of parameters are handled without error.
+
+However, that work represents many hours of careful testing and implementation that is far beyond the scope of this short package demo.
+
+Adventurous souls may be interested in a more mature implementation of the `ReducedDimensionHexPlot()` panel class, implemented in the `r BiocStyle::Biocpkg("iSEEhex")` package.
+Source code can be found on GitHub on [this page](https://github.com/iSEE/iSEEhex/blob/main/R/ReducedDimensionHexPlot.R).
+
+### Adding reactivity
+
+At this point, if users tried to change the bin resolution using the newly added interface element, they will notice that nothing seems to happen.
+
+That is because we have not yet added a Shiny observer
 
 ## Session info
 
