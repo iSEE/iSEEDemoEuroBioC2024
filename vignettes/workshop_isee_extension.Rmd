@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+## load now due to unevaluated code below
+library(iSEE)
 ```
 
 Last modified: 09 July, 2024.
