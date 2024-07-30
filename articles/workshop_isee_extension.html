@@ -1039,18 +1039,6 @@ ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
 replacing the internal plotting code in the child panel.</div>
 </div>
 <p><br></p>
-<p>Now, there are many more aspects of the plotting behaviour that we
-should test and adjust, making sure that all the choices of parameters
-presented to end users are sensible, and that all combinations of
-parameters are handled without error.</p>
-<p>However, that work represents many hours of careful testing and
-implementation that is far beyond the scope of this short package
-demo.</p>
-<p>Adventurous souls may be interested in a more mature implementation
-of the <code>ReducedDimensionHexPlot()</code> panel class, implemented
-in the <em><a href="https://bioconductor.org/packages/3.20/iSEEhex" class="external-link">iSEEhex</a></em>
-package. Source code can be found on GitHub on <a href="https://github.com/iSEE/iSEEhex/blob/main/R/ReducedDimensionHexPlot.R" class="external-link">this
-page</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="adding-reactivity">Adding reactivity<a class="anchor" aria-label="anchor" href="#adding-reactivity"></a>
@@ -1096,6 +1084,44 @@ adding an observer in the child panel and using the value of the new
 interface element.</div>
 </div>
 <p><br></p>
+</div>
+<div class="section level3">
+<h3 id="further-work">Further work<a class="anchor" aria-label="anchor" href="#further-work"></a>
+</h3>
+<p>At this point, there are many more aspects of the plotting behaviour
+that we should test and adjust, making sure that all the choices of
+parameters presented to end users are sensible, and that all
+combinations of parameters are handled without error.</p>
+<p>However, that work represents many hours of careful testing and
+implementation that is far beyond the scope of this short package
+demo.</p>
+<p>Adventurous souls may be interested in a more mature implementation
+of the <code>ReducedDimensionHexPlot()</code> panel class, implemented
+in the <em><a href="https://bioconductor.org/packages/3.20/iSEEhex" class="external-link">iSEEhex</a></em>
+package. Source code can be found on GitHub on <a href="https://github.com/iSEE/iSEEhex/blob/main/R/ReducedDimensionHexPlot.R" class="external-link">this
+page</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="additional-resources">Additional resources<a class="anchor" aria-label="anchor" href="#additional-resources"></a>
+</h3>
+<p>The book <a href="https://isee.github.io/iSEE-book/" class="external-link">Extending
+iSEE</a> is the original effort from developers to provide guidance for
+writing <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+extensions using example use cases for illustration.</p>
+<p>The more recent <a href="https://isee.github.io/iSEETheBook/" class="external-link">iSEETheBook</a> launched a
+new effort to provide a comprehensive view of the ecosystem for all
+three major groups of users:</p>
+<ul>
+<li>End users interacting with the graphical user interface in their web
+browser.</li>
+<li>Developers of scripted web-applications using <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em> to
+showcase data sets.</li>
+<li>Developers of extensions contributing new functionality and packages
+to the <em><a href="https://bioconductor.org/packages/3.20/iSEE" class="external-link">iSEE</a></em>
+ecosystem.</li>
+</ul>
+<p>The <a href="https://isee.github.io/" class="external-link">iSEE website</a> is the place
+to watch for links to additional resources.</p>
 </div>
 </div>
 <div class="section level2">
@@ -1293,7 +1319,7 @@ interface element.</div>
 <span><span class="co">#&gt;  yaml                   2.3.10    <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  zlibbioc               1.51.1    <span style="color: #555555;">2024-06-05</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpXgqUXp/temp_libpath54753d5424f</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmp7N3ZA5/temp_libpath4e964df8829</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [3] /usr/local/lib/R/library</span></span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1303,7 +1329,7 @@ interface element.</div>
 <h2 id="timings">Timings<a class="anchor" aria-label="anchor" href="#timings"></a>
 </h2>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 1.299 mins</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 1.324 mins</span></span></code></pre>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr>
