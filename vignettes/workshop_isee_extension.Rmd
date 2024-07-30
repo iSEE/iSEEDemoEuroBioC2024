@@ -570,6 +570,8 @@ iSEE(sce, initial = list(
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension.](img/iSEEhex_clone.png)
 
+<br/>
+
 How can we even tell which is which?!
 
 The generic `.fullName()` declares the label shown in the interface, at the top of each panel.
@@ -590,6 +592,8 @@ iSEE(sce, initial = list(
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the full name of the child panel.](img/iSEEhex_fullName.png)
+
+<br/>
 
 ## Session info
 
