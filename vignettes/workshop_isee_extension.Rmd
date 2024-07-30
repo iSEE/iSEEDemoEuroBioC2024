@@ -547,6 +547,21 @@ For this, the new class needs an additional slot to store the number of hexagona
 setClass("ReducedDimensionHexPlot", contains="ReducedDimensionPlot", slots=c(BinResolution = "numeric"))
 ```
 
+To properly initialise instances of the new class, the new slot must be populated with a default value in the event that users do not specify a bin resolution.
+
+For this, we need to create a new method for the generic `initialize()` and the new class.
+We set the default resolution to 100 hexagonal bins along each axis.
+
+```{r}
+setMethod("initialize", "ReducedDimensionHexPlot", function(.Object, ...) {
+    args <- list(...)
+
+    args <- .emptyDefault(args, .plotBinResolution, 100)
+
+    do.call(callNextMethod, c(list(.Object), args))
+})
+```
+
 ### Creating a constructor function
 
 It is best practice to give users a function to create objects a particular class.
