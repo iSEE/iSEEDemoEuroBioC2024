@@ -711,13 +711,6 @@ iSEE(sce, initial = list(
 
 <br/>
 
-Now, there are many more aspects of the plotting behaviour that we should test and adjust, making sure that all the choices of parameters presented to end users are sensible, and that all combinations of parameters are handled without error.
-
-However, that work represents many hours of careful testing and implementation that is far beyond the scope of this short package demo.
-
-Adventurous souls may be interested in a more mature implementation of the `ReducedDimensionHexPlot()` panel class, implemented in the `r BiocStyle::Biocpkg("iSEEhex")` package.
-Source code can be found on GitHub on [this page](https://github.com/iSEE/iSEEhex/blob/main/R/ReducedDimensionHexPlot.R).
-
 ### Adding reactivity
 
 At this point, if users change the bin resolution using the newly added interface element, they will notice that nothing seems to happen.
@@ -755,6 +748,27 @@ iSEE(sce, initial = list(
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after adding an observer in the child panel and using the value of the new interface element.](img/iSEE_observer.png)
 
 <br/>
+
+### Further work
+
+At this point, there are many more aspects of the plotting behaviour that we should test and adjust, making sure that all the choices of parameters presented to end users are sensible, and that all combinations of parameters are handled without error.
+
+However, that work represents many hours of careful testing and implementation that is far beyond the scope of this short package demo.
+
+Adventurous souls may be interested in a more mature implementation of the `ReducedDimensionHexPlot()` panel class, implemented in the `r BiocStyle::Biocpkg("iSEEhex")` package.
+Source code can be found on GitHub on [this page](https://github.com/iSEE/iSEEhex/blob/main/R/ReducedDimensionHexPlot.R).
+
+### Additional resources
+
+The book [Extending iSEE](https://isee.github.io/iSEE-book/) is the original effort from developers to provide guidance for writing `r BiocStyle::Biocpkg("iSEE")` extensions using example use cases for illustration.
+
+The more recent [iSEETheBook](https://isee.github.io/iSEETheBook/) launched a new effort to provide a comprehensive view of the ecosystem for all three major groups of users:
+
+* End users interacting with the graphical user interface in their web browser.
+* Developers of scripted web-applications using `r BiocStyle::Biocpkg("iSEE")` to showcase data sets.
+* Developers of extensions contributing new functionality and packages to the `r BiocStyle::Biocpkg("iSEE")` ecosystem.
+
+The [iSEE website](https://isee.github.io/) is the place to watch for links to additional resources.
 
 ## Session info
 
