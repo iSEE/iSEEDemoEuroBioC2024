@@ -306,7 +306,8 @@ to the R session and calling the <code><a href="https://rdrr.io/pkg/iSEE/man/iSE
 an app in the default settings.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iSEE/iSEE" class="external-link">iSEE</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEE_default.png" alt="Screenshot of iSEE app."><div class="figcaption">Screenshot of iSEE app.</div>
 </div>
@@ -413,7 +414,8 @@ again at any point in an analytical workflow.</p>
 and metadata in the updated object, populating the application
 components with all the available information, old and new.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEE_default_2.png" alt="Screenshot of iSEE app."><div class="figcaption">Screenshot of iSEE app.</div>
 </div>
@@ -507,7 +509,8 @@ argument of the <code><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="ex
 desired initial state</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="va">initial</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="va">initial</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEE_initial.png" alt="Screenshot of iSEE app launched in a predefined initial configuration."><div class="figcaption">Screenshot of iSEE app launched in a predefined
 initial configuration.</div>
@@ -802,7 +805,7 @@ differential expression in the live app.</p>
 <p>Finally, we can preconfigure the initial state of an app that
 immediately links panels to one another.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">airway</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">airway</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEEpathways/man/PathwaysTable-class.html" class="external-link">PathwaysTable</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEEde/man/VolcanoPlot-class.html" class="external-link">VolcanoPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">4L</span>,</span>
 <span>    RowSelectionSource <span class="op">=</span> <span class="st">"PathwaysTable1"</span>, ColorBy <span class="op">=</span> <span class="st">"Row selection"</span><span class="op">)</span>,</span>
@@ -811,7 +814,8 @@ immediately links panels to one another.</p>
 <span>    CustomRows <span class="op">=</span> <span class="cn">FALSE</span>, ColumnData <span class="op">=</span> <span class="st">"dex"</span>,</span>
 <span>    ClusterRows <span class="op">=</span> <span class="cn">TRUE</span>, ClusterRowsDistance <span class="op">=</span> <span class="st">"euclidean"</span>, AssayCenterRows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEEpathways/man/FgseaEnrichmentPlot-class.html" class="external-link">FgseaEnrichmentPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">12L</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEpathways_integration.png" alt="Screenshot of iSEE app including extension panels and launched in a predefined initial configuration."><div class="figcaption">Screenshot of iSEE app including extension
 panels and launched in a predefined initial configuration.</div>
@@ -911,10 +915,11 @@ various slots that describe the initial state of the panel.</p>
 new panel class… that is a carbon copy of the parent class it inherits
 from!</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_clone.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension.</div>
@@ -933,10 +938,11 @@ name, highlighting the hexagonal binning in the plot.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html" class="external-link">setMethod</a></span><span class="op">(</span><span class="st">".fullName"</span>, <span class="st">"ReducedDimensionHexPlot"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="st">"Hexagonal reduced dimension plot"</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s launch the app to see the effect</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_fullName.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the full name of the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -956,10 +962,11 @@ colour.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html" class="external-link">setMethod</a></span><span class="op">(</span><span class="st">".panelColor"</span>, <span class="st">"ReducedDimensionHexPlot"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="st">"#991717"</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s launch the app to see the effect</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_color.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the background colour of the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -993,10 +1000,11 @@ resolution.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_input.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the size parameter interface in the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -1029,10 +1037,11 @@ values such as incoming selections,</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>plot<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/manage_commands.html" class="external-link">.textEval</a></span><span class="op">(</span><span class="va">plot_cmds</span>, <span class="va">envir</span><span class="op">)</span>, commands<span class="op">=</span><span class="va">plot_cmds</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_binned.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the internal plotting code in the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -1073,10 +1082,11 @@ triggers re-rendering of the panel plot.</p>
 to toy with the bin resolution and watch the panel plot being
 re-rendered each time.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEE_observer.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after adding an observer in the child panel and using the value of the new interface element."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -1170,9 +1180,9 @@ to watch for links to additional resources.</p>
 <span><span class="co">#&gt;  Biostrings             2.73.1    <span style="color: #555555;">2024-06-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  bit                    4.0.5     <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  bit64                  4.0.5     <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  bitops                 1.0-7     <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bitops                 1.0-8     <span style="color: #555555;">2024-07-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  blob                   1.2.4     <span style="color: #555555;">2023-03-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  bslib                  0.7.0     <span style="color: #555555;">2024-03-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bslib                  0.8.0     <span style="color: #555555;">2024-07-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  cachem                 1.1.0     <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  circlize               0.4.16    <span style="color: #555555;">2024-02-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  cli                    3.6.3     <span style="color: #555555;">2024-06-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
@@ -1292,7 +1302,7 @@ to watch for links to additional resources.</p>
 <span><span class="co">#&gt;  scuttle              * 1.15.2    <span style="color: #555555;">2024-07-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
 <span><span class="co">#&gt;  sessioninfo            1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  shape                  1.4.6.1   <span style="color: #555555;">2024-02-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  shiny                  1.8.1.1   <span style="color: #555555;">2024-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shiny                  1.9.0     <span style="color: #555555;">2024-07-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  shinyAce               0.4.2     <span style="color: #555555;">2022-05-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  shinydashboard         0.7.2     <span style="color: #555555;">2021-09-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  shinyjs                2.1.0     <span style="color: #555555;">2021-12-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
@@ -1319,7 +1329,7 @@ to watch for links to additional resources.</p>
 <span><span class="co">#&gt;  yaml                   2.3.10    <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  zlibbioc               1.51.1    <span style="color: #555555;">2024-06-05</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpsgzuUQ/temp_libpath4e82deb202e</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmp6QLViF/temp_libpath55fd1c4ebc</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [3] /usr/local/lib/R/library</span></span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1329,7 +1339,7 @@ to watch for links to additional resources.</p>
 <h2 id="timings">Timings<a class="anchor" aria-label="anchor" href="#timings"></a>
 </h2>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 1.279 mins</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 1.311 mins</span></span></code></pre>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr>
