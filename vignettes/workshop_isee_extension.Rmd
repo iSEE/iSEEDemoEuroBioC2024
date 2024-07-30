@@ -708,6 +708,8 @@ iSEE(sce, initial = list(
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the internal plotting code in the child panel.](img/iSEEhex_binned.png)
 
+<br/>
+
 Now, there are many more aspects of the plotting behaviour that we should test and adjust, making sure that all the choices of parameters presented to end users are sensible, and that all combinations of parameters are handled without error.
 
 However, that work represents many hours of careful testing and implementation that is far beyond the scope of this short package demo.
@@ -717,9 +719,41 @@ Source code can be found on GitHub on [this page](https://github.com/iSEE/iSEEhe
 
 ### Adding reactivity
 
-At this point, if users tried to change the bin resolution using the newly added interface element, they will notice that nothing seems to happen.
+At this point, if users change the bin resolution using the newly added interface element, they will notice that nothing seems to happen.
 
-That is because we have not yet added a Shiny observer
+That is because we have not yet added a Shiny observer responding to this particular event.
+
+The `.createObservers()` generic is invoked to create observers for all the instances of each panel class added to the user interface.
+
+The `.createProtectedParameterObservers()` function provides a convenient way to create observers responding to events that change the data being plotted and potentially break active multiple seletions, if any.
+This function automatically ensures that any change of value in the interface element is updated in the panel state and triggers re-rendering of the panel plot.
+
+```{r}
+setMethod(".createObservers", "ReducedDimensionHexPlot", function(x, se, input, session, pObjects, rObjects) {
+    callNextMethod()
+
+    plot_name <- .getEncodedName(x)
+
+    .createProtectedParameterObservers(plot_name,
+        fields=c("BinResolution"),
+        input=input, pObjects=pObjects, rObjects=rObjects)
+
+    invisible(NULL)
+})
+```
+
+With the new observer in place, we can launch the app one more time, to toy with the bin resolution and watch the panel plot being re-rendered each time.
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+iSEE(sce, initial = list(
+  ReducedDimensionHexPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size"),
+  ReducedDimensionPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size")
+))
+```
+
+![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after adding an observer in the child panel and using the value of the new interface element.](img/iSEE_observer.png)
+
+<br/>
 
 ## Session info
 
