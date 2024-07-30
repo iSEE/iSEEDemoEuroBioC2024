@@ -8,7 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
 ```{r, include = FALSE}
 ## Track time spent on making the vignette
 startTime <- Sys.time()
@@ -50,8 +49,7 @@ Relevant background reading:
   [materials](https://isee.github.io/iSEEWorkshop2019/),
   [slides](https://isee.github.io/iSEEWorkshop2019Slides/)
 * Rue-Albrecht K, Marini F, Soneson C and Lun ATL.
-  iSEE: Interactive SummarizedExperiment Explorer
-  [version 1; peer review: 3 approved]. F1000Research 2018, 7:741
+  iSEE: Interactive SummarizedExperiment Explorer [version 1; peer review: 3 approved]. F1000Research 2018, 7:741
   (https://doi.org/10.12688/f1000research.14966.1)
 * Vignette: [SummarizedExperiment for Coordinating Experimental Assays, Samples, and Regions of Interest](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html#anatomy-of-a-summarizedexperiment)
 
@@ -331,8 +329,8 @@ For instance, the same initial state illustrated above can be achieved using the
 
 ```{r}
 initial <- list(
-    ReducedDimensionPlot(),
-    FeatureAssayPlot()
+  ReducedDimensionPlot(),
+  FeatureAssayPlot()
 )
 ```
 
@@ -479,9 +477,9 @@ Due to the use of `uniquifyFeatureNames()` above, the function must first map to
 
 ```{r}
 map_GO <- function(pathway_id, se) {
-    pathway_ensembl <- mapIds(org.Hs.eg.db, pathway_id, "ENSEMBL", keytype = "GOALL", multiVals = "CharacterList")[[pathway_id]]
-    pathway_rownames <- rownames(se)[rowData(se)[["gene_id"]] %in% pathway_ensembl]
-    pathway_rownames
+  pathway_ensembl <- mapIds(org.Hs.eg.db, pathway_id, "ENSEMBL", keytype = "GOALL", multiVals = "CharacterList")[[pathway_id]]
+  pathway_rownames <- rownames(se)[rowData(se)[["gene_id"]] %in% pathway_ensembl]
+  pathway_rownames
 }
 airway <- registerAppOptions(airway, Pathways.map.functions = list(GO = map_GO))
 ```
@@ -541,7 +539,14 @@ In this demo, let us create a new class called `ReducedDimensionHexPlot`, that i
 
 The objective is to produce a panel that displays the same information as the original `ReducedDimensionPlot()` panel, but summarising data points into hexagonal bins.
 
-For this, the new class needs an additional slot to store the number of hexagonal bins to create (i.e., a resolution for the plot).
+One major motivation for this functionality is that arbitrarily large data sets comprising many data points may be summarised into a modest number of hexagonal bins, providing a boost in speed when rendering the plot.
+
+However, this is not without caveats:
+
+* Summarising can take many forms (e.g., counting, averaging).
+* The ideal number of bins may be different for different data sets.
+
+To proceed, the new class needs at least one additional slot to store the number of hexagonal bins to create (i.e., a resolution for the plot).
 
 ```{r}
 setClass("ReducedDimensionHexPlot", contains="ReducedDimensionPlot", slots=c(BinResolution = "numeric"))
@@ -554,11 +559,11 @@ We set the default resolution to 100 hexagonal bins along each axis.
 
 ```{r}
 setMethod("initialize", "ReducedDimensionHexPlot", function(.Object, ...) {
-    args <- list(...)
-
-    args <- .emptyDefault(args, "BinResolution", 100)
-
-    do.call(callNextMethod, c(list(.Object), args))
+  args <- list(...)
+  
+  args <- .emptyDefault(args, "BinResolution", 20)
+  
+  do.call(callNextMethod, c(list(.Object), args))
 })
 ```
 
@@ -572,7 +577,7 @@ This is standard practice in `r BiocStyle::Biocpkg("iSEE")`, where the arguments
 
 ```{r}
 ReducedDimensionHexPlot <- function(...) {
-    new("ReducedDimensionHexPlot", ...)
+  new("ReducedDimensionHexPlot", ...)
 }
 ```
 
@@ -591,7 +596,7 @@ iSEE(sce, initial = list(
 
 How can we even tell which is which?!
 
-### Overwriting S4 methods
+### Changing the public panel name
 
 The generic `.fullName()` declares the label shown in the interface, at the top of each panel.
 
@@ -614,6 +619,8 @@ iSEE(sce, initial = list(
 
 <br/>
 
+### Changing the background panel colour
+
 Similarly, the generic `.panelColor()` declares the background colour of the panel header (as well as the colour of brushes for compatible panels).
 
 Let us create a method for the new class, that gives it a different colour.
@@ -635,6 +642,8 @@ iSEE(sce, initial = list(
 
 <br/>
 
+### Altering the user interface
+
 At this point, there is still no component in the user interface to control the resolution value store in the new slot.
 
 A number of S4 methods control the interface elements displayed in the variousgroups of parameters located under each panel.
@@ -646,12 +655,12 @@ Thus, the generic `.defineVisualSizeInterface()` is the natural choice to use fo
 
 ```{r}
 setMethod(".defineVisualSizeInterface", "ReducedDimensionHexPlot", function(x) {
-    plot_name <- .getEncodedName(x)
-
-    tagList(
-        .numericInput.iSEE(x, "BinResolution", label="Bin resolution:",
-            min=1, value=x[["BinResolution"]], step = 1)
-    )
+  plot_name <- .getEncodedName(x)
+  
+  tagList(
+    .numericInput.iSEE(x, "BinResolution", label="Bin resolution:",
+                       min=1, value=x[["BinResolution"]], step = 1)
+  )
 })
 ```
 
@@ -665,6 +674,39 @@ iSEE(sce, initial = list(
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the size parameter interface in the child panel.](img/iSEEhex_input.png)
 
 <br/>
+
+### Altering the panel output
+
+Time for the most exciting and challenging task: making the panel produce a different type of plot!
+
+To this end, the generic `.generateDotPlot()` is key.
+Given a panel state, axis labels, and an environment that contains the `SummarizedExperiment()` object and possibly other relevant values such as incoming selections, 
+
+```{r}
+setMethod(".generateDotPlot", "ReducedDimensionHexPlot", function(x, labels, envir) {
+  plot_cmds <- list()
+  plot_cmds[["ggplot"]] <- "ggplot() +"
+  color_lab <- "Count"
+  new_aes <- .buildAes()
+  plot_cmds[["hex"]] <- sprintf(
+    "ggplot2::geom_hex(%s, bins = %i, plot.data) +",
+    new_aes,
+    as.integer(x[["BinResolution"]])
+  )
+  plot_cmds[["theme_base"]] <- "theme_bw()"
+  
+  list(plot=.textEval(plot_cmds, envir), commands=plot_cmds)
+})
+```
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+iSEE(sce, initial = list(
+  ReducedDimensionHexPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size"),
+  ReducedDimensionPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size")
+))
+```
+
+![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the internal plotting code in the child panel.](img/iSEEhex_binned.png)
 
 ## Session info
 
