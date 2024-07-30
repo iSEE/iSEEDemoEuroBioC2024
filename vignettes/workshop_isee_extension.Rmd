@@ -17,8 +17,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-## Load now to avoid startup messages later
-library(iSEE)
 ```
 
 Last modified: 09 July, 2024.
