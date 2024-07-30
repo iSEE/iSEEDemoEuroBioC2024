@@ -748,7 +748,7 @@ With the new observer in place, we can launch the app one more time, to toy with
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 iSEE(sce, initial = list(
   ReducedDimensionHexPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size"),
-  ReducedDimensionPlot(PanelWidth = 6L, VisualBoxOpen = TRUE, VisualChoices = "Size")
+  ReducedDimensionPlot(PanelWidth = 6L)
 ))
 ```
 
