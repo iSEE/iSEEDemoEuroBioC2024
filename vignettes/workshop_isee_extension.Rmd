@@ -561,7 +561,7 @@ ReducedDimensionHexPlot <- function(...) {
 
 At this point, we can already demonstrate that we have a functional new panel class... that is a carbon copy of the parent class it inherits from!
 
-```{r}
+```{r, message=FALSE, warning=FALSE, eval=interactive()}
 iSEE(sce, initial = list(
   ReducedDimensionHexPlot(),
   ReducedDimensionPlot()
