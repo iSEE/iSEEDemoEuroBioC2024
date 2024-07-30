@@ -576,6 +576,8 @@ iSEE(sce, initial = list(
 
 How can we even tell which is which?!
 
+### Overwriting S4 methods
+
 The generic `.fullName()` declares the label shown in the interface, at the top of each panel.
 
 Let us create a method for the new class, that gives it a different name, highlighting the hexagonal binning in the plot.
@@ -594,6 +596,27 @@ iSEE(sce, initial = list(
 ```
 
 ![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the full name of the child panel.](img/iSEEhex_fullName.png)
+
+<br/>
+
+Similarly, the generic `.panelColor()` declares the background colour of the panel header (as well as the colour of brushes for compatible panels).
+
+Let us create a method for the new class, that gives it a different colour.
+
+```{r}
+setMethod(".panelColor", "ReducedDimensionHexPlot", function(x) "#991717")
+```
+
+Let's launch the app to see the effect
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+iSEE(sce, initial = list(
+  ReducedDimensionHexPlot(PanelWidth = 6L),
+  ReducedDimensionPlot(PanelWidth = 6L)
+))
+```
+
+![Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the background colour of the child panel.](img/iSEEhex_color.png)
 
 <br/>
 
