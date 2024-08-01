@@ -32,17 +32,18 @@ RoxygenNote: 7.1.0
 Depends: 
     Biobase
 Imports:
-    airway,
-    BiocStyle,
-    DESeq2,
-    fgsea,
     iSEE,
     iSEEde,
     iSEEhex,
     iSEEhub,
     iSEEindex,
     iSEEpathways,
-    iSEEu,
+    iSEEu
+Suggests:
+    airway,
+    BiocStyle,
+    DESeq2,
+    fgsea,,
     knitr,
     org.Hs.eg.db,
     pkgdown,
