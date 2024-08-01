@@ -43,7 +43,7 @@ Suggests:
     airway,
     BiocStyle,
     DESeq2,
-    fgsea,,
+    fgsea,
     knitr,
     org.Hs.eg.db,
     pkgdown,
