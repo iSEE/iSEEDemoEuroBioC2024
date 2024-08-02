@@ -1,6 +1,6 @@
 ---
 title: "Writing iSEE extensions"
-author: Kevin Rue-Albrecht^[kevinrue67@gmail.com],Federico Marini^[marinif@uni-mainz.de], Charlotte Soneson^[charlottesoneson@gmail.com]
+author: Kevin Rue-Albrecht^[kevinrue67@gmail.com], Federico Marini^[marinif@uni-mainz.de], Charlotte Soneson^[charlottesoneson@gmail.com]
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Writing iSEE extensions}
@@ -156,6 +156,7 @@ Let's demonstrate this by attaching the `r BiocStyle::Biocpkg("iSEE")` package t
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 library(iSEE)
+library(shiny)
 app <- iSEE(sce)
 runApp(app, launch.browser = TRUE)
 ```
@@ -437,7 +438,7 @@ Due to the use of `uniquifyFeatureNames()` above, we must first map pathway iden
 
 ```{r, message=FALSE, warning=FALSE}
 library("org.Hs.eg.db")
-pathways <- select(org.Hs.eg.db, keys(org.Hs.eg.db, "ENSEMBL"), c("GOALL"), keytype = "ENSEMBL")
+pathways <- select(org.Hs.eg.db, head(keys(org.Hs.eg.db, "GOALL"), 100), c("ENSEMBL"), keytype = "GOALL")
 pathways <- subset(pathways, ONTOLOGYALL == "BP")
 pathways <- unique(pathways[, c("ENSEMBL", "GOALL")])
 pathways <- merge(pathways, rowData(airway)[, c("ENSEMBL", "uniquifyFeatureNames")])
