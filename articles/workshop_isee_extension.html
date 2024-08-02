@@ -77,7 +77,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Writing iSEE extensions</h1>
                         <h4 data-toc-skip class="author">Kevin
-Rue-Albrecht<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>,Federico Marini<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, Charlotte Soneson<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
+Rue-Albrecht<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Federico Marini<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, Charlotte Soneson<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
 </h4>
             
       
@@ -306,8 +306,9 @@ to the R session and calling the <code><a href="https://rdrr.io/pkg/iSEE/man/iSE
 an app in the default settings.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/iSEE/iSEE" class="external-link">iSEE</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEE_default.png" alt="Screenshot of iSEE app."><div class="figcaption">Screenshot of iSEE app.</div>
 </div>
@@ -415,7 +416,7 @@ and metadata in the updated object, populating the application
 components with all the available information, old and new.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEE_default_2.png" alt="Screenshot of iSEE app."><div class="figcaption">Screenshot of iSEE app.</div>
 </div>
@@ -441,7 +442,7 @@ that looks as follows:</p>
 <span><span class="co"># Settings for Reduced dimension plot 1</span></span>
 <span><span class="co">################################################################################</span></span>
 <span></span>
-<span><span class="va">initial</span><span class="op">[[</span><span class="st">"ReducedDimensionPlot1"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">new</span><span class="op">(</span><span class="st">"ReducedDimensionPlot"</span>, Type <span class="op">=</span> <span class="st">"PCA"</span>, XAxis <span class="op">=</span> <span class="fl">1L</span>, YAxis <span class="op">=</span> <span class="fl">2L</span>, </span>
+<span><span class="va">initial</span><span class="op">[[</span><span class="st">"ReducedDimensionPlot1"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/new.html" class="external-link">new</a></span><span class="op">(</span><span class="st">"ReducedDimensionPlot"</span>, Type <span class="op">=</span> <span class="st">"PCA"</span>, XAxis <span class="op">=</span> <span class="fl">1L</span>, YAxis <span class="op">=</span> <span class="fl">2L</span>, </span>
 <span>    FacetRowByColData <span class="op">=</span> <span class="st">"driver_1_s"</span>, FacetColumnByColData <span class="op">=</span> <span class="st">"driver_1_s"</span>, </span>
 <span>    ColorByColumnData <span class="op">=</span> <span class="st">"NREADS"</span>, ColorByFeatureNameAssay <span class="op">=</span> <span class="st">"logcounts"</span>, </span>
 <span>    ColorBySampleNameColor <span class="op">=</span> <span class="st">"#FF0000"</span>, ShapeByColumnData <span class="op">=</span> <span class="st">"driver_1_s"</span>, </span>
@@ -470,7 +471,7 @@ that looks as follows:</p>
 <span><span class="co"># Settings for Feature assay plot 1</span></span>
 <span><span class="co">################################################################################</span></span>
 <span></span>
-<span><span class="va">initial</span><span class="op">[[</span><span class="st">"FeatureAssayPlot1"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">new</span><span class="op">(</span><span class="st">"FeatureAssayPlot"</span>, Assay <span class="op">=</span> <span class="st">"logcounts"</span>, XAxis <span class="op">=</span> <span class="st">"None"</span>, </span>
+<span><span class="va">initial</span><span class="op">[[</span><span class="st">"FeatureAssayPlot1"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/new.html" class="external-link">new</a></span><span class="op">(</span><span class="st">"FeatureAssayPlot"</span>, Assay <span class="op">=</span> <span class="st">"logcounts"</span>, XAxis <span class="op">=</span> <span class="st">"None"</span>, </span>
 <span>    XAxisColumnData <span class="op">=</span> <span class="st">"NREADS"</span>, XAxisFeatureName <span class="op">=</span> <span class="st">"0610007P14Rik"</span>, </span>
 <span>    XAxisFeatureSource <span class="op">=</span> <span class="st">"---"</span>, XAxisFeatureDynamicSource <span class="op">=</span> <span class="cn">FALSE</span>, </span>
 <span>    YAxisFeatureName <span class="op">=</span> <span class="st">"0610007P14Rik"</span>, YAxisFeatureSource <span class="op">=</span> <span class="st">"---"</span>, </span>
@@ -510,7 +511,7 @@ desired initial state</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/iSEE.html" class="external-link">iSEE</a></span><span class="op">(</span><span class="va">sce</span>, initial <span class="op">=</span> <span class="va">initial</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEE_initial.png" alt="Screenshot of iSEE app launched in a predefined initial configuration."><div class="figcaption">Screenshot of iSEE app launched in a predefined
 initial configuration.</div>
@@ -708,7 +709,7 @@ accurately perform pathway analysis using the feature identifiers
 matching those of the embedded differential expression results.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"org.Hs.eg.db"</span><span class="op">)</span></span>
-<span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">keys</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GOALL"</span><span class="op">)</span>, keytype <span class="op">=</span> <span class="st">"ENSEMBL"</span><span class="op">)</span></span>
+<span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">keys</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="st">"GOALL"</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSEMBL"</span><span class="op">)</span>, keytype <span class="op">=</span> <span class="st">"GOALL"</span><span class="op">)</span></span>
 <span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">pathways</span>, <span class="va">ONTOLOGYALL</span> <span class="op">==</span> <span class="st">"BP"</span><span class="op">)</span></span>
 <span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">pathways</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSEMBL"</span>, <span class="st">"GOALL"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">pathways</span>, <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSEMBL"</span>, <span class="st">"uniquifyFeatureNames"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
@@ -733,22 +734,22 @@ results by name.</p>
 <span><span class="co">#&gt; Warning in preparePathwaysAndStats(pathways, stats, minSize, maxSize, gseaParam, : There are ties in the preranked stats (25.61% of the list).</span></span>
 <span><span class="co">#&gt; The order of those tied genes will be arbitrary, which may produce unexpected results.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fgseaRes</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">pval</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       pathway         pval        padj   log2err        ES      NES  size</span></span>
-<span><span class="co">#&gt;        &lt;char&gt;        &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt;    &lt;num&gt; &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1: GO:0071294 5.864480e-07 0.002487553 0.6594444 0.8124702 2.239911    19</span></span>
-<span><span class="co">#&gt; 2: GO:0061687 1.034325e-06 0.002487553 0.6435518 0.8176539 2.198248    17</span></span>
-<span><span class="co">#&gt; 3: GO:0071280 2.768611e-06 0.004439007 0.6272567 0.7601160 2.189482    22</span></span>
-<span><span class="co">#&gt; 4: GO:0035357 5.771481e-06 0.006535683 0.6105269 0.7534512 2.189955    23</span></span>
-<span><span class="co">#&gt; 5: GO:0097501 6.947335e-06 0.006535683 0.6105269 0.8018175 2.097399    16</span></span>
-<span><span class="co">#&gt; 6: GO:0043501 8.152619e-06 0.006535683 0.5933255 0.7557131 2.157048    21</span></span>
+<span><span class="co">#&gt;       pathway       pval      padj   log2err         ES       NES  size</span></span>
+<span><span class="co">#&gt;        &lt;char&gt;      &lt;num&gt;     &lt;num&gt;     &lt;num&gt;      &lt;num&gt;     &lt;num&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1: GO:0006953 0.08086785 0.6105632 0.2220560  0.4207971  1.344516    36</span></span>
+<span><span class="co">#&gt; 2: GO:0008585 0.09074074 0.6105632 0.2020717  0.3246918  1.261056    94</span></span>
+<span><span class="co">#&gt; 3: GO:0022602 0.10074627 0.6105632 0.1918922  0.3846962  1.303461    45</span></span>
+<span><span class="co">#&gt; 4: GO:0002437 0.16279070 0.6105632 0.1585141 -0.3364185 -1.209283    58</span></span>
+<span><span class="co">#&gt; 5: GO:0002697 0.19527897 0.6105632 0.1446305 -0.2416966 -1.095904   307</span></span>
+<span><span class="co">#&gt; 6: GO:0006959 0.19870410 0.6105632 0.1437590 -0.2678407 -1.130609   158</span></span>
 <span><span class="co">#&gt;     leadingEdge</span></span>
 <span><span class="co">#&gt;          &lt;list&gt;</span></span>
-<span><span class="co">#&gt; 1: MT1X, MT....</span></span>
-<span><span class="co">#&gt; 2: MT1X, MT....</span></span>
-<span><span class="co">#&gt; 3: MT1X, MT....</span></span>
-<span><span class="co">#&gt; 4: ALOX15B,....</span></span>
-<span><span class="co">#&gt; 5: MT1X, MT....</span></span>
-<span><span class="co">#&gt; 6: TRIM63, ....</span></span></code></pre></div>
+<span><span class="co">#&gt; 1: CD163, S....</span></span>
+<span><span class="co">#&gt; 2: INHBB, L....</span></span>
+<span><span class="co">#&gt; 3: LEP, ADA....</span></span>
+<span><span class="co">#&gt; 4: IL1RN, R....</span></span>
+<span><span class="co">#&gt; 5: RSAD2, I....</span></span>
+<span><span class="co">#&gt; 6: TSLP, WF....</span></span></code></pre></div>
 <p>Similarly to the differential expression analysis, we embed the
 results of the <em><a href="https://bioconductor.org/packages/3.20/DESeq2" class="external-link">DESeq2</a></em>
 analysis within the <code>airway</code> object, this time using the
@@ -815,7 +816,7 @@ immediately links panels to one another.</p>
 <span>    ClusterRows <span class="op">=</span> <span class="cn">TRUE</span>, ClusterRowsDistance <span class="op">=</span> <span class="st">"euclidean"</span>, AssayCenterRows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEEpathways/man/FgseaEnrichmentPlot-class.html" class="external-link">FgseaEnrichmentPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">12L</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEpathways_integration.png" alt="Screenshot of iSEE app including extension panels and launched in a predefined initial configuration."><div class="figcaption">Screenshot of iSEE app including extension
 panels and launched in a predefined initial configuration.</div>
@@ -919,7 +920,7 @@ from!</p>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_clone.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension.</div>
@@ -942,7 +943,7 @@ name, highlighting the hexagonal binning in the plot.</p>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_fullName.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the full name of the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -966,7 +967,7 @@ colour.</p>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_color.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after changing the background colour of the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -994,7 +995,7 @@ resolution.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/methods/setMethod.html" class="external-link">setMethod</a></span><span class="op">(</span><span class="st">".defineVisualSizeInterface"</span>, <span class="st">"ReducedDimensionHexPlot"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">plot_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/getEncodedName.html" class="external-link">.getEncodedName</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="fu">tagList</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/interface-wrappers.html" class="external-link">.numericInput.iSEE</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"BinResolution"</span>, label<span class="op">=</span><span class="st">"Bin resolution:"</span>,</span>
 <span>                       min<span class="op">=</span><span class="fl">1</span>, value<span class="op">=</span><span class="va">x</span><span class="op">[[</span><span class="st">"BinResolution"</span><span class="op">]</span><span class="op">]</span>, step <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -1004,7 +1005,7 @@ resolution.</p>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_input.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the size parameter interface in the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -1041,7 +1042,7 @@ values such as incoming selections,</p>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEEhex_binned.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after replacing the internal plotting code in the child panel."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -1086,7 +1087,7 @@ re-rendered each time.</p>
 <span>  <span class="fu">ReducedDimensionHexPlot</span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span>, VisualBoxOpen <span class="op">=</span> <span class="cn">TRUE</span>, VisualChoices <span class="op">=</span> <span class="st">"Size"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/iSEE/man/ReducedDimensionPlot-class.html" class="external-link">ReducedDimensionPlot</a></span><span class="op">(</span>PanelWidth <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">runApp</span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="img/iSEE_observer.png" alt="Screenshot of iSEE app including a parent ReducedDimensionPlot and a ReducedDimensionHexPlot extension after adding an observer in the child panel and using the value of the new interface element."><div class="figcaption">Screenshot of iSEE app including a parent
 ReducedDimensionPlot and a ReducedDimensionHexPlot extension after
@@ -1149,7 +1150,7 @@ to watch for links to additional resources.</p>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       Etc/UTC</span></span>
-<span><span class="co">#&gt;  date     2024-08-01</span></span>
+<span><span class="co">#&gt;  date     2024-08-02</span></span>
 <span><span class="co">#&gt;  pandoc   3.2 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
@@ -1205,10 +1206,10 @@ to watch for links to additional resources.</p>
 <span><span class="co">#&gt;  doParallel             1.0.17    <span style="color: #555555;">2022-02-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  dplyr                  1.1.4     <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  DT                     0.33      <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  edgeR                  4.3.6     <span style="color: #555555;">2024-07-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  edgeR                  4.3.7     <span style="color: #555555;">2024-07-31</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
 <span><span class="co">#&gt;  ensembldb              2.29.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  evaluate               0.24.0    <span style="color: #555555;">2024-06-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  ExperimentHub          2.13.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ExperimentHub          2.13.1    <span style="color: #555555;">2024-07-31</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
 <span><span class="co">#&gt;  fansi                  1.0.6     <span style="color: #555555;">2023-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  fastmap                1.2.0     <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  fastmatch              1.1-4     <span style="color: #555555;">2023-08-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
@@ -1272,7 +1273,7 @@ to watch for links to additional resources.</p>
 <span><span class="co">#&gt;  pkgdown                2.1.0     <span style="color: #555555;">2024-07-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  png                    0.1-8     <span style="color: #555555;">2022-11-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  promises               1.3.0     <span style="color: #555555;">2024-04-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  ProtGenerics           1.37.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ProtGenerics           1.37.1    <span style="color: #555555;">2024-07-31</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.1)</span></span></span>
 <span><span class="co">#&gt;  R6                     2.5.1     <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  ragg                   1.3.2     <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  rappdirs               0.3.3     <span style="color: #555555;">2021-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
@@ -1321,7 +1322,7 @@ to watch for links to additional resources.</p>
 <span><span class="co">#&gt;  vipor                  0.4.7     <span style="color: #555555;">2023-12-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  viridis                0.6.5     <span style="color: #555555;">2024-01-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  viridisLite            0.4.2     <span style="color: #555555;">2023-05-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  withr                  3.0.0     <span style="color: #555555;">2024-01-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  withr                  3.0.1     <span style="color: #555555;">2024-07-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  xfun                   0.46      <span style="color: #555555;">2024-07-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  XML                    3.99-0.17 <span style="color: #555555;">2024-06-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  xtable                 1.8-4     <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
@@ -1329,7 +1330,7 @@ to watch for links to additional resources.</p>
 <span><span class="co">#&gt;  yaml                   2.3.10    <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  zlibbioc               1.51.1    <span style="color: #555555;">2024-06-05</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpqJ7g90/temp_libpath6f454729ea0</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpMrDwuc/temp_libpath78d51050cc9</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [3] /usr/local/lib/R/library</span></span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1339,7 +1340,7 @@ to watch for links to additional resources.</p>
 <h2 id="timings">Timings<a class="anchor" aria-label="anchor" href="#timings"></a>
 </h2>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 1.278 mins</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 47.556 secs</span></span></code></pre>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr>
