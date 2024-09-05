@@ -359,7 +359,7 @@ In the next 10 minutes, we will:
 | [iSEEde](https://github.com/iSEE/iSEEde) | Extension for differential expression analysis. |
 | [iSEEhex](https://github.com/iSEE/iSEEhex) | Extension for summarisation into hexagonal bins. |
 | [iSEEhub](https://github.com/iSEE/iSEEhub) | Extension for access to the Bioconductor `r BiocStyle::Biocpkg("ExperimentHub")`. |
-| [iSEEindex](https://github.com/iSEE/iSEEindex) | Extension for access to custom collectins of local and remote data sets. |
+| [iSEEindex](https://github.com/iSEE/iSEEindex) | Extension for access to custom collections of local and remote data sets. |
 | [iSEEpathways](https://github.com/iSEE/iSEEpathways) | Extension for pathway analysis. |
 | [iSEEu](https://github.com/iSEE/iSEEu) | The 'iSEE universe': Extension for miscellaneous and experimental functionality. |
 
@@ -729,7 +729,7 @@ That is because we have not yet added a Shiny observer responding to this partic
 
 The `.createObservers()` generic is invoked to create observers for all the instances of each panel class added to the user interface.
 
-The `.createProtectedParameterObservers()` function provides a convenient way to create observers responding to events that change the data being plotted and potentially break active multiple seletions, if any.
+The `.createProtectedParameterObservers()` function provides a convenient way to create observers responding to events that change the data being plotted and potentially break active multiple selections, if any.
 This function automatically ensures that any change of value in the interface element is updated in the panel state and triggers re-rendering of the panel plot.
 
 ```{r}
